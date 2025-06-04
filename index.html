@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Démo Bot Vocal IA E-commerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- SwiperJS CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="style.css">
+  <!-- DOMPurify pour le bot -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
+  <style>
+    /* Ton CSS inline d'origine, tu peux l'enlever si tu utilises style.css, mais je le laisse ici pour être fidèle à ta demande */
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #181e36 0%, #4349a1 100%);
+      margin: 0;
+      color: #fff;
+    }
+    .hero {
+      text-align: center;
+      padding: 38px 0 24px 0;
+      background: none;
+      box-shadow: none;
+    }
+    .hero h1 {
+      font-size: 2.1em;
+      margin-bottom: 14px;
+      letter-spacing: -1px;
+    }
+    .swiper {
+      width: 98vw;
+      max-width: 900px;
+      margin: 0 auto 24px auto;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px #14192d33;
+      background: #fff;
+      padding: 32px 0 10px 0;
+    }
+    .swiper-slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 16px;
+      min-height: 370px;
+    }
+    .demo-img {
+      width: 94%;
+      max-width: 580px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 18px #14192d19;
+      border: 1px solid #f1f3ff;
+    }
+    .slide-title {
+      font-size: 1.24em;
+      color: #4349a1;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .slide-desc {
+      color: #333;
+      font-size: 1em;
+      margin-bottom: 10px;
+      opacity: 0.85;
+    }
+    /* Swiper pagination bullets */
+    .swiper-pagination-bullet {
+      background: #4349a1;
+      opacity: 0.55;
+    }
+    .swiper-pagination-bullet-active {
+      background: #5a61f2;
+      opacity: 1;
+    }
+    /* Section offres */
+    .offers {
+      background: rgba(255,255,255,0.09);
+      border-radius: 36px 36px 0 0;
+      padding: 36px 12px 80px 12px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .offers h2 {
+      margin-bottom: 28px;
+      color: #fff;
+      font-size: 2em;
+      letter-spacing: -1px;
+    }
+    .offer-cards {
+      display: flex;
+      gap: 22px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+    .offer {
+      background: #184588;
+      border-radius: 16px;
+      padding: 24px 30px;
+      min-width: 220px;
+      max-width: 300px;
+      box-shadow: 0 1px 14px #282d4257;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .offer h3 { color: #c9ddfc; margin-bottom: 13px;}
+    .offer ul { padding-left: 16px; margin: 0 0 13px 0; }
+    .offer li { margin-bottom: 6px; font-size: 1.03em; }
+    .price { color: #e2feff; font-size: 1.3em; font-weight: bold; margin-bottom: 0;}
+    .contact-btn {
+      display: block; margin: 36px auto 0 auto;
+      background: #ff5e36; color: #fff;
+      font-size: 1.15em; border: none; border-radius: 28px;
+      padding: 12px 30px; cursor: pointer; box-shadow: 0 2px 14px #23275036;
+      transition: background 0.18s;
+    }
+    .contact-btn:hover { background: #df370c; }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .swiper { width: 99vw; }
+      .demo-img { height: 170px; }
+    }
+    @media (max-width: 640px) {
+      .offers { padding: 18px 5px; }
+      .offer-cards { flex-direction: column; align-items: center; gap: 14px;}
+      .offer { max-width: 96vw; }
+      .hero { padding: 12px 0 4px 0; }
+    }
+    /* Ajouts de la section bénéfices et footer */
+    .benefits {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      margin: 32px auto 0 auto;
+      max-width: 950px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 22px;
+      padding: 18px 8px;
+      box-shadow: 0 2px 12px #1113a22a;
+    }
+    .benefit-item {
+      display: flex; flex-direction: column; align-items: center;
+      min-width: 110px;
+    }
+    .benefit-icon {
+      width: 36px; height: 36px; margin-bottom: 7px;
+      background: #fff; border-radius: 50%; box-shadow: 0 1px 5px #242a5222;
+    }
+    .benefit-item span {
+      color: #fff;
+      font-size: 1.08em;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 4px;
+    }
+    .footer {
+      background: rgba(30,30,40,0.86);
+      color: #cfd6ff;
+      text-align: center;
+      padding: 28px 0 8px 0;
+      font-size: 1em;
+      margin-top: 56px;
+      border-radius: 26px 26px 0 0;
+      box-shadow: 0 -2px 18px #161a3246;
+    }
+    .footer-content {
+      display: flex; flex-direction: column; gap: 5px; align-items: center; justify-content: center;
+    }
+    .footer a { color: #66edfa; text-decoration: none; font-weight: bold;}
+    .footer a:hover { text-decoration: underline;}
+    .footer-made { color: #f980a2; margin-top: 2px; font-size: 0.97em; }
+  </style>
+</head>
+<body>
+  <!-- HERO + SLIDER DEMOS -->
+  <section class="hero">
+    <h1>Découvrez le bot vocal IA sur n'importe quel site</h1>
+    <p class="hero-desc">Testez-le sur plusieurs univers : maquillage, coaching, meubles…<br>
+      <span class="hero-highlight">Le bot qui transforme chaque visiteur en client.</span>
+    </p>
+    <!-- CARROUSEL SWIPER DEMOS -->
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <!-- Slide 1 : Maquillage -->
+        <div class="swiper-slide">
+          <img class="demo-img" src="img/demo-maquillage.jpg" alt="Démo site maquillage">
+          <div class="slide-title">Site de Maquillage</div>
+          <div class="slide-desc">Le bot conseille la cliente sur les produits selon son type de peau, répond en vocal, et booste la conversion.</div>
+        </div>
+        <!-- Slide 2 : Coaching sportif -->
+        <div class="swiper-slide">
+          <img class="demo-img" src="img/demo-coaching.jpg" alt="Démo site coaching">
+          <div class="slide-title">Coaching Sportif</div>
+          <div class="slide-desc">Le bot prend les RDV, répond en vocal, explique les offres et capte tous les leads pour le coach.</div>
+        </div>
+        <!-- Slide 3 : E-commerce meubles -->
+        <div class="swiper-slide">
+          <img class="demo-img" src="img/demo-meubles.jpg" alt="Démo e-commerce meubles">
+          <div class="slide-title">E-commerce de Meubles</div>
+          <div class="slide-desc">Le bot guide le client, recommande le bon meuble, et fait la FAQ vocale comme un vendeur en boutique.</div>
+        </div>
+      </div>
+      <!-- Pagination et flèches -->
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </section>
+
+  <!-- SECTION BÉNÉFICES CLIENT -->
+  <section class="benefits">
+    <div class="benefit-item">
+      <img src="img/clock.svg" alt="24/7" class="benefit-icon"/>
+      <span>Disponible 24/7</span>
+    </div>
+    <div class="benefit-item">
+      <img src="img/conversion.svg" alt="Conversion" class="benefit-icon"/>
+      <span>Conversion +20%</span>
+    </div>
+    <div class="benefit-item">
+      <img src="img/rocket.svg" alt="Rapide" class="benefit-icon"/>
+      <span>Intégration <br>en 5 minutes</span>
+    </div>
+    <div class="benefit-item">
+      <img src="img/support.svg" alt="Support" class="benefit-icon"/>
+      <span>Support premium inclus</span>
+    </div>
+  </section>
+
+  <!-- OFFRES/PRIX -->
+  <section class="offers">
+    <h2>Nos offres</h2>
+    <div class="offer-cards">
+      <div class="offer">
+        <h3>Starter</h3>
+        <ul>
+          <li>Intégration du bot sur votre site</li>
+          <li>Jusqu'à 500 conversations/mois</li>
+          <li>Personnalisation logo & couleurs</li>
+        </ul>
+        <p class="price">49 €/mois</p>
+      </div>
+      <div class="offer">
+        <h3>Pro</h3>
+        <ul>
+          <li>Toutes les options Starter</li>
+          <li>Jusqu'à 5 000 conversations/mois</li>
+          <li>Accès à la FAQ e-commerce intelligente</li>
+          <li>Statistiques détaillées</li>
+        </ul>
+        <p class="price">149 €/mois</p>
+      </div>
+      <div class="offer">
+        <h3>Sur-mesure</h3>
+        <ul>
+          <li>Volume & besoins illimités</li>
+          <li>Intégration multi-sites</li>
+          <li>Fonctionnalités avancées</li>
+          <li>Accompagnement personnalisé</li>
+        </ul>
+        <p class="price">Sur devis</p>
+      </div>
+    </div>
+    <button class="contact-btn">Demander un essai</button>
+  </section>
+
+  <!-- FOOTER PRO -->
+  <footer class="footer">
+    <div class="footer-content">
+      <span>© 2025 Novacorp. Tous droits réservés.</span>
+      <span>Contact : <a href="mailto:demo@novacorp.com">demo@novacorp.com</a></span>
+      <span class="footer-made">Fait avec ❤️ par Diego</span>
+    </div>
+  </footer>
+
+  <!-- 2. ANCRAGE BOT (bonne pratique, optionnel mais recommandé) -->
+  <div id="bot-widget"></div>
+
+  <!-- INTEGRE TON BOT VOCAL SAAS ICI -->
+  <script 
+    src="https://chatbot-vocal-frontend.onrender.com/ChatbotWidget.js"
+    data-client-id="novacorp"
+    data-backend-url="https://chatbot-vocal-backend.onrender.com">
+  </script>
+
+  <!-- SwiperJS : la lib + initialisation -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+      keyboard: { enabled: true }
+    });
+  </script>
+</body>
+</html>
