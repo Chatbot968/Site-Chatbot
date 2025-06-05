@@ -10,7 +10,6 @@
   <!-- DOMPurify pour le bot -->
   <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
   <style>
-    /* Ton CSS inline d'origine, tu peux l'enlever si tu utilises style.css, mais je le laisse ici pour être fidèle à ta demande */
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: linear-gradient(135deg, #181e36 0%, #4349a1 100%);
@@ -68,7 +67,6 @@
       margin-bottom: 10px;
       opacity: 0.85;
     }
-    /* Swiper pagination bullets */
     .swiper-pagination-bullet {
       background: #4349a1;
       opacity: 0.55;
@@ -77,7 +75,6 @@
       background: #5a61f2;
       opacity: 1;
     }
-    /* Section offres */
     .offers {
       background: rgba(255,255,255,0.09);
       border-radius: 36px 36px 0 0;
@@ -120,7 +117,6 @@
       transition: background 0.18s;
     }
     .contact-btn:hover { background: #df370c; }
-    /* Responsive */
     @media (max-width: 900px) {
       .swiper { width: 99vw; }
       .demo-img { height: 170px; }
@@ -131,7 +127,6 @@
       .offer { max-width: 96vw; }
       .hero { padding: 12px 0 4px 0; }
     }
-    /* Ajouts de la section bénéfices et footer */
     .benefits {
       display: flex;
       gap: 32px;
@@ -205,7 +200,6 @@
           <div class="slide-desc">Le bot guide le client, recommande le bon meuble, et fait la FAQ vocale comme un vendeur en boutique.</div>
         </div>
       </div>
-      <!-- Pagination et flèches -->
       <div class="swiper-pagination"></div>
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
@@ -230,6 +224,52 @@
       <img src="img/support.svg" alt="Support" class="benefit-icon"/>
       <span>Support premium inclus</span>
     </div>
+  </section>
+
+  <!-- FORMULAIRE DE CRÉATION DE CONFIG -->
+  <section class="config-form">
+    <h2>Créer ma configuration</h2>
+    <!-- ======= FORMULAIRE PRO (remplace l'ancien) ======= -->
+    <form id="configForm" autocomplete="off" style="max-width:460px;margin:0 auto;display:flex;flex-direction:column;gap:16px;padding:30px 18px;background:#fff4;border-radius:18px;box-shadow:0 2px 18px #181e3627">
+      <label>Nom du site*
+        <input type="text" name="name" required placeholder="ex : NovaCorp">
+      </label>
+      <label>Client ID (unique, sans espace)*
+        <input type="text" name="clientId" pattern="^[a-zA-Z0-9_-]+$" required placeholder="ex : novacorp">
+      </label>
+      <label>Couleur principale
+        <input type="color" name="color" value="#009688" style="height:32px;width:52px;vertical-align:middle;">
+      </label>
+      <label>Logo (URL)
+        <input type="url" name="logo" placeholder="https://...">
+      </label>
+      <label>Clé OpenAI API (optionnel)
+        <input type="text" name="openaiApiKey" placeholder="sk-...">
+      </label>
+      <label>Lien RGPD (URL ou page)
+        <input type="text" name="rgpdLink" placeholder="/politique-confidentialite.html">
+      </label>
+      <label>Limite de conversations/mois (optionnel)
+        <input type="number" name="maxCalls" min="1" step="1" placeholder="ex : 500">
+      </label>
+      <div>
+        <label>Sujets suggérés (min 1)&nbsp;:</label>
+        <div id="suggestions" style="display:flex;flex-direction:column;gap:6px;margin-top:3px;"></div>
+        <button type="button" id="addSuggestion" style="margin-top:8px;">+ Ajouter une suggestion</button>
+      </div>
+      <button type="submit" class="config-submit" style="background:#4349a1;color:#fff;padding:14px 0;font-size:1.11em;border:none;border-radius:10px;cursor:pointer;">Créer la config</button>
+      <div id="formStatus" style="margin-top:10px;color:#f55;"></div>
+    </form>
+
+    <!-- Zone pour le script à copier -->
+    <div id="scriptResult" style="display:none;background:#fff8;padding:20px 14px;border-radius:16px;margin:22px auto 0 auto;max-width:540px;box-shadow:0 2px 20px #181e3640;text-align:center;">
+      <h3 style="color:#4349a1;margin-bottom:8px;">Votre script à intégrer</h3>
+      <code id="scriptSnippet" style="background:#222;color:#ffd;font-size:1.07em;padding:12px 8px;display:block;border-radius:10px;margin-bottom:12px;text-align:left;white-space:pre-wrap;"></code>
+      <button id="copySnippet" style="padding:8px 18px;background:#184588;color:#fff;border:none;border-radius:8px;cursor:pointer;">Copier le script</button>
+      <div id="copyMsg" style="color:#13e580;margin-top:8px;display:none;">Script copié !</div>
+      <p style="margin-top:12px;font-size:1em;color:#2b2b;">Collez ce code juste avant la balise <b>&lt;/body&gt;</b> de votre site.<br><i>Votre bot vocal est prêt 🚀</i></p>
+    </div>
+    <!-- ======= FIN FORMULAIRE PRO ======= -->
   </section>
 
   <!-- OFFRES/PRIX -->
@@ -298,5 +338,120 @@
       keyboard: { enabled: true }
     });
   </script>
+
+  <!-- ========= SCRIPT DU FORMULAIRE PRO (à la fin du body) ========= -->
+  <script>
+  const backendUrl = "https://chatbot-vocal-backend.onrender.com"; // adapte si tu changes de domaine
+
+  // --- Suggestions dynamiques ---
+  const suggestionsDiv = document.getElementById('suggestions');
+  const addSuggestionBtn = document.getElementById('addSuggestion');
+  let suggestionCount = 0;
+  function addSuggestion(value="") {
+    if (suggestionCount >= 6) return;
+    suggestionCount++;
+    const d = document.createElement('div');
+    d.style.display = "flex"; d.style.gap = "7px";
+    d.innerHTML = `
+      <input type="text" required name="suggestion" placeholder="Suggestion..." style="flex:1" value="${value.replace(/"/g,'&quot;')}">
+      <button type="button" aria-label="Supprimer" title="Supprimer" style="color:#f33;border:none;background:none;font-size:1.2em;cursor:pointer;">&times;</button>
+    `;
+    d.querySelector('button').onclick = () => { suggestionsDiv.removeChild(d); suggestionCount--; };
+    suggestionsDiv.appendChild(d);
+  }
+  addSuggestion("Quels sont vos services ?");
+  addSuggestion("Je souhaite prendre rendez-vous");
+
+  addSuggestionBtn.onclick = () => addSuggestion("");
+
+  // --- Soumission du formulaire ---
+  const form = document.getElementById('configForm');
+  const statusDiv = document.getElementById('formStatus');
+  const scriptResult = document.getElementById('scriptResult');
+  const scriptSnippet = document.getElementById('scriptSnippet');
+  const copyBtn = document.getElementById('copySnippet');
+  const copyMsg = document.getElementById('copyMsg');
+
+  form.onsubmit = async function(e) {
+    e.preventDefault();
+    statusDiv.textContent = "";
+    scriptResult.style.display = "none";
+    // Récupère les valeurs
+    const fd = new FormData(form);
+    const name = fd.get("name").trim();
+    const clientId = fd.get("clientId").trim();
+    const color = fd.get("color") || "#009688";
+    const openaiApiKey = fd.get("openaiApiKey").trim();
+    const logo = fd.get("logo").trim();
+    const rgpdLink = fd.get("rgpdLink").trim();
+    const maxCalls = fd.get("maxCalls") ? parseInt(fd.get("maxCalls"),10) : undefined;
+    // Suggestions
+    const suggestions = Array.from(form.querySelectorAll('input[name="suggestion"]'))
+      .map(i => i.value.trim()).filter(Boolean);
+    if (suggestions.length === 0) {
+      statusDiv.textContent = "Ajoutez au moins une suggestion.";
+      return;
+    }
+    // Prépare payload
+    const payload = { 
+      clientId, name, color, suggestions, 
+      logo: logo||undefined, 
+      rgpdLink: rgpdLink||undefined, 
+      openaiApiKey: openaiApiKey||undefined,
+      ...(maxCalls ? {maxCalls} : {})
+    };
+    // Appel backend
+    form.querySelector('button[type=submit]').disabled = true;
+    statusDiv.style.color = "#666";
+    statusDiv.textContent = "Création de la configuration…";
+    try {
+      const resp = await fetch(backendUrl + "/api/config", {
+        method: "POST",
+        headers: { "Content-Type":"application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (resp.status === 409) {
+        statusDiv.style.color = "#f22";
+        statusDiv.textContent = "Une configuration avec cet ID existe déjà.";
+        form.querySelector('button[type=submit]').disabled = false;
+        return;
+      }
+      if (!resp.ok) throw new Error(await resp.text());
+      // Affiche le snippet de script à intégrer
+      const snippet = 
+  `<script 
+    src="https://chatbot-vocal-frontend.onrender.com/ChatbotWidget.js"
+    data-client-id="${clientId}"
+    data-backend-url="${backendUrl}">
+  </script>`;
+      scriptSnippet.textContent = snippet;
+      scriptResult.style.display = "block";
+      statusDiv.style.color = "#13e580";
+      statusDiv.textContent = "✔️ Configuration créée avec succès !";
+      // Scroll to snippet
+      setTimeout(()=>scriptResult.scrollIntoView({behavior:"smooth"}),150);
+      form.reset();
+      // Réinitialise suggestions à 2 par défaut
+      suggestionsDiv.innerHTML = ""; suggestionCount = 0;
+      addSuggestion("Quels sont vos services ?");
+      addSuggestion("Je souhaite prendre rendez-vous");
+    } catch(err) {
+      statusDiv.style.color = "#f22";
+      statusDiv.textContent = "Erreur : " + (err.message || err);
+      scriptResult.style.display = "none";
+    }
+    form.querySelector('button[type=submit]').disabled = false;
+  };
+
+  // --- Copier le script ---
+  copyBtn.onclick = function() {
+    navigator.clipboard.writeText(scriptSnippet.textContent).then(()=>{
+      copyMsg.style.display = "block";
+      setTimeout(()=>{copyMsg.style.display="none";},1600);
+    });
+  }
+  </script>
+  <!-- ========= FIN SCRIPT FORMULAIRE PRO ========= -->
+
 </body>
 </html>
