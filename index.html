@@ -232,6 +232,23 @@
     </div>
   </section>
 
+  <!-- FORMULAIRE DE CRÉATION DE CONFIG -->
+  <section class="config-form">
+    <h2>Créer ma configuration</h2>
+    <form id="configForm">
+      <label for="siteName">Nom du site</label>
+      <input type="text" id="siteName" name="siteName" required>
+
+      <label for="clientId">Client&nbsp;ID</label>
+      <input type="text" id="clientId" name="clientId" required>
+
+      <label for="backendUrl">Backend&nbsp;URL</label>
+      <input type="url" id="backendUrl" name="backendUrl" required>
+
+      <button type="submit" class="config-submit">Créer la config</button>
+    </form>
+  </section>
+
   <!-- OFFRES/PRIX -->
   <section class="offers">
     <h2>Nos offres</h2>
@@ -297,6 +314,20 @@
       navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
       keyboard: { enabled: true }
     });
+
+    const form = document.getElementById('configForm');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const config = {
+          siteName: form.siteName.value,
+          clientId: form.clientId.value,
+          backendUrl: form.backendUrl.value
+        };
+        localStorage.setItem('chatbotConfig', JSON.stringify(config));
+        alert('Configuration enregistr\u00E9e !');
+      });
+    }
   </script>
 </body>
 </html>
