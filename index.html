@@ -418,12 +418,11 @@
       }
       if (!resp.ok) throw new Error(await resp.text());
       // Affiche le snippet de script à intégrer
-      const snippet = 
-  `<script 
-    src="https://chatbot-vocal-frontend.onrender.com/ChatbotWidget.js"
-    data-client-id="${clientId}"
-    data-backend-url="${backendUrl}">
-  </script>`;
+        const snippet =
+    `<script
+      src="https://chatbot-vocal-frontend.onrender.com/ChatbotWidget.js"
+      data-client-id="${clientId}"
+      data-backend-url="${backendUrl}"><\/script>`;
       scriptSnippet.textContent = snippet;
       scriptResult.style.display = "block";
       statusDiv.style.color = "#13e580";
