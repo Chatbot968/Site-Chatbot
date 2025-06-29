@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Démo interactive - Bot Vocal IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: linear-gradient(135deg, #0f3460 0%, #a8b2ff 100%); color: #fff; }
+    .demo-hero { text-align: center; padding: 70px 0 30px 0; }
+    .demo-hero h1 { font-size: 2.7rem; font-weight: 800; background: linear-gradient(90deg, #fff, #667eea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .demo-hero p { color: #b8c5ff; font-size: 1.1rem; max-width: 600px; margin: 18px auto 0 auto; }
+    .demo-section { max-width: 900px; margin: 40px auto; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 40px 30px; box-shadow: 0 8px 32px #667eea44; }
+    .demo-scenarios { display: flex; gap: 30px; flex-wrap: wrap; margin-bottom: 30px; }
+    .demo-scenario { flex: 1; min-width: 220px; background: rgba(102,126,234,0.08); border-radius: 16px; padding: 24px; text-align: center; }
+    .demo-scenario h3 { color: #fff; font-size: 1.1rem; margin-bottom: 10px; }
+    .demo-scenario p { color: #b8c5ff; font-size: 0.98em; }
+    .demo-video { margin: 30px auto; text-align: center; }
+    .demo-video iframe { border-radius: 16px; box-shadow: 0 2px 12px #667eea22; width: 100%; max-width: 500px; height: 280px; border: none; }
+    .demo-bot { margin: 40px auto 0 auto; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="demo-hero">
+    <h1>Démo interactive</h1>
+    <p>Testez le bot vocal IA dans différents scénarios et voyez comment il s'adapte à chaque univers.</p>
+  </div>
+  <div class="demo-section">
+    <div class="demo-scenarios">
+      <div class="demo-scenario">
+        <h3>Site de maquillage</h3>
+        <p>Le bot conseille sur les produits selon le type de peau.</p>
+      </div>
+      <div class="demo-scenario">
+        <h3>Coaching sportif</h3>
+        <p>Le bot prend les RDV et répond aux questions sur les programmes.</p>
+      </div>
+      <div class="demo-scenario">
+        <h3>E-commerce meubles</h3>
+        <p>Le bot guide le client vers le bon produit et répond à la FAQ.</p>
+      </div>
+    </div>
+    <div class="demo-video">
+      <iframe src="https://www.youtube.com/embed/2e1x3bU7Q6A" allowfullscreen title="Démo vidéo"></iframe>
+    </div>
+    <div class="demo-bot">
+      <h3>Essayez le bot vocal ici :</h3>
+      <script src="https://chatbot-owsk.onrender.com/chatbot.js" data-client-id="demo-interactive" data-backend-url="https://backend-dxeo.onrender.com"></script>
+    </div>
+  </div>
+</body>
+</html> 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ - Bot Vocal IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: linear-gradient(135deg, #16213e 0%, #667eea 100%); color: #fff; }
+    .faq-hero { text-align: center; padding: 70px 0 30px 0; }
+    .faq-hero h1 { font-size: 2.7rem; font-weight: 800; background: linear-gradient(90deg, #fff, #a8b2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .faq-hero p { color: #b8c5ff; font-size: 1.1rem; max-width: 600px; margin: 18px auto 0 auto; }
+    .faq-section { max-width: 900px; margin: 40px auto; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 40px 30px; box-shadow: 0 8px 32px #667eea44; }
+    .faq-list { margin-top: 30px; }
+    .faq-item { margin-bottom: 18px; border-radius: 14px; background: rgba(102,126,234,0.08); box-shadow: 0 2px 12px #667eea22; }
+    .faq-question { cursor: pointer; padding: 18px 22px; font-weight: 700; color: #a8b2ff; font-size: 1.1em; display: flex; align-items: center; justify-content: space-between; }
+    .faq-answer { max-height: 0; overflow: hidden; background: rgba(255,255,255,0.04); color: #fff; padding: 0 22px; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.4s; }
+    .faq-item.open .faq-answer { max-height: 300px; padding: 18px 22px; }
+    .faq-item.open .faq-question { color: #fff; }
+    .faq-toggle { font-size: 1.5em; transition: transform 0.3s; }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+  </style>
+</head>
+<body>
+  <div class="faq-hero">
+    <h1>FAQ</h1>
+    <p>Toutes les réponses à vos questions sur le bot vocal IA, l'intégration, la sécurité, la facturation…</p>
+  </div>
+  <div class="faq-section">
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Comment intégrer le bot vocal sur mon site ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Il suffit de copier-coller un script fourni dans le code de votre site, juste avant la balise &lt;/body&gt;. L'intégration prend moins de 5 minutes !</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Le bot est-il compatible mobile et tablette ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Oui, le bot s'adapte à tous les écrans et fonctionne aussi bien sur mobile que sur ordinateur.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Mes données sont-elles sécurisées ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Toutes les conversations sont chiffrées et stockées sur des serveurs sécurisés en Europe. Nous respectons le RGPD.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Puis-je personnaliser le bot à mon image ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Oui, vous pouvez choisir les couleurs, le logo, les suggestions, et même le ton de voix du bot.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Quel est le support proposé ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Support email pour l'offre Starter, support prioritaire pour Pro, et support dédié 24/7 pour Business.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Comment puis-je résilier ou changer d'offre ? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Vous pouvez changer d'offre ou résilier à tout moment depuis votre espace client ou en contactant notre équipe.</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.faq-question').forEach(q => {
+      q.addEventListener('click', function() {
+        const item = this.parentElement;
+        item.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html> 
