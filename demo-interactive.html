@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     .main-header .header-nav a {
       color: #fff !important;
       font-weight: 700;
@@ -69,32 +70,43 @@
       });
     }
   </script>
-  <div class="demo-hero">
-    <h1>Démo interactive</h1>
-    <p>Testez le bot vocal IA dans différents scénarios et voyez comment il s'adapte à chaque univers.</p>
-  </div>
-  <div class="demo-section">
-    <div class="demo-scenarios">
-      <div class="demo-scenario">
-        <h3>Site de maquillage</h3>
-        <p>Le bot conseille sur les produits selon le type de peau.</p>
-      </div>
-      <div class="demo-scenario">
-        <h3>Coaching sportif</h3>
-        <p>Le bot prend les RDV et répond aux questions sur les programmes.</p>
-      </div>
-      <div class="demo-scenario">
-        <h3>E-commerce meubles</h3>
-        <p>Le bot guide le client vers le bon produit et répond à la FAQ.</p>
+  <!-- HERO DEMO -->
+  <section class="hero">
+    <h1>Démo interactive du bot vocal IA</h1>
+    <p class="hero-desc">Testez le bot vocal IA dans différents scénarios et voyez comment il s'adapte à chaque univers.<br>
+      <span class="hero-highlight">Essayez-le en direct ci-dessous !</span>
+    </p>
+  </section>
+  <!-- SECTION DEMO SCENARIOS -->
+  <section class="benefits">
+    <div class="benefit-item">
+      <h3>Site de maquillage</h3>
+      <span>Le bot conseille sur les produits selon le type de peau.</span>
+    </div>
+    <div class="benefit-item">
+      <h3>Coaching sportif</h3>
+      <span>Le bot prend les RDV et répond aux questions sur les programmes.</span>
+    </div>
+    <div class="benefit-item">
+      <h3>E-commerce meubles</h3>
+      <span>Le bot guide le client vers le bon produit et répond à la FAQ.</span>
+    </div>
+  </section>
+  <!-- SECTION VIDEO DEMO -->
+  <section class="how-it-works" style="padding: 4rem 2rem; background: rgba(255,255,255,0.05); margin-top: 2rem;">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+      <h2 style="font-size: 2rem; margin-bottom: 2rem; color: #fff;">Vidéo de démonstration</h2>
+      <div class="demo-video">
+        <iframe src="https://www.youtube.com/embed/2e1x3bU7Q6A" allowfullscreen title="Démo vidéo" style="border-radius: 16px; box-shadow: 0 2px 12px #667eea22; width: 100%; max-width: 500px; height: 280px; border: none;"></iframe>
       </div>
     </div>
-    <div class="demo-video">
-      <iframe src="https://www.youtube.com/embed/2e1x3bU7Q6A" allowfullscreen title="Démo vidéo"></iframe>
-    </div>
-    <div class="demo-bot">
-      <h3>Essayez le bot vocal ici :</h3>
+  </section>
+  <!-- SECTION BOT DEMO -->
+  <section class="offers" style="padding: 60px 12px 80px 12px; margin-top: 40px; text-align: center;">
+    <h2>Essayez le bot vocal ici :</h2>
+    <div class="demo-bot" style="margin: 0 auto; text-align: center;">
       <script src="https://chatbot-owsk.onrender.com/chatbot.js" data-client-id="demo-interactive" data-backend-url="https://backend-dxeo.onrender.com"></script>
     </div>
-  </div>
+  </section>
 </body>
 </html> 
