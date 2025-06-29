@@ -840,37 +840,90 @@
   <section class="offers">
     <h2>Nos offres</h2>
     <div class="offer-cards">
-      <div class="offer">
+      <!-- Starter -->
+      <div class="offer offer-starter">
         <h3>Starter</h3>
         <ul>
-          <li>Intégration du bot sur votre site</li>
           <li>Jusqu'à 500 conversations/mois</li>
+          <li>Support email</li>
           <li>Personnalisation logo & couleurs</li>
         </ul>
         <p class="price">49 €/mois</p>
+        <button class="offer-btn">Essayer Starter</button>
       </div>
-      <div class="offer">
+      <!-- Pro (populaire) -->
+      <div class="offer offer-pro" style="position:relative; z-index:2;">
+        <div class="offer-badge">Le + choisi</div>
         <h3>Pro</h3>
         <ul>
-          <li>Toutes les options Starter</li>
           <li>Jusqu'à 5 000 conversations/mois</li>
-          <li>Accès à la FAQ e-commerce intelligente</li>
-          <li>Statistiques détaillées</li>
+          <li>Support prioritaire</li>
+          <li>FAQ IA intelligente</li>
+          <li>Statistiques avancées</li>
         </ul>
         <p class="price">149 €/mois</p>
+        <button class="offer-btn offer-btn-pro">Essayer Pro</button>
       </div>
-      <div class="offer">
-        <h3>Sur-mesure</h3>
+      <!-- Business -->
+      <div class="offer offer-business">
+        <h3>Business</h3>
         <ul>
-          <li>Volume & besoins illimités</li>
+          <li>Conversations illimitées</li>
+          <li>Support dédié 24/7</li>
           <li>Intégration multi-sites</li>
-          <li>Fonctionnalités avancées</li>
-          <li>Accompagnement personnalisé</li>
+          <li>Fonctionnalités sur-mesure</li>
         </ul>
         <p class="price">Sur devis</p>
+        <button class="offer-btn offer-btn-business">Contactez-nous</button>
       </div>
     </div>
-    <button class="contact-btn">Demander un essai</button>
+    <!-- Comparatif rapide -->
+    <div class="offer-compare" style="margin: 40px auto 0 auto; max-width: 900px; background: rgba(255,255,255,0.04); border-radius: 18px; padding: 24px 18px; box-shadow: 0 2px 18px #181e3627;">
+      <table style="width:100%; color:#fff; border-collapse:collapse;">
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+          <th style="text-align:left; padding:8px 0;">Fonctionnalités</th>
+          <th>Starter</th>
+          <th>Pro</th>
+          <th>Business</th>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;">Conversations/mois</td>
+          <td>500</td>
+          <td>5 000</td>
+          <td>Illimité</td>
+        </tr>
+        <tr style="background:rgba(255,255,255,0.02);">
+          <td style="padding:8px 0;">Support</td>
+          <td>Email</td>
+          <td>Prioritaire</td>
+          <td>Dévoué 24/7</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;">FAQ IA</td>
+          <td>Non</td>
+          <td>Oui</td>
+          <td>Oui</td>
+        </tr>
+        <tr style="background:rgba(255,255,255,0.02);">
+          <td style="padding:8px 0;">Statistiques avancées</td>
+          <td>Non</td>
+          <td>Oui</td>
+          <td>Oui</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;">Multi-sites</td>
+          <td>Non</td>
+          <td>Non</td>
+          <td>Oui</td>
+        </tr>
+        <tr style="background:rgba(255,255,255,0.02);">
+          <td style="padding:8px 0;">Personnalisation</td>
+          <td>Logo & couleurs</td>
+          <td>Avancée</td>
+          <td>Sur-mesure</td>
+        </tr>
+      </table>
+    </div>
   </section>
 
   <!-- SECTION TÉMOIGNAGES -->
@@ -960,17 +1013,6 @@
     
     // Initialisation des particules
     document.addEventListener('DOMContentLoaded', createParticles);
-    
-    // Effet de parallaxe sur scroll
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const parallax = document.querySelector('.hero');
-      const speed = scrolled * 0.5;
-      
-      if (parallax) {
-        parallax.style.transform = `translateY(${speed}px)`;
-      }
-    });
     
     // Animation d'entrée des éléments
     const observerOptions = {
