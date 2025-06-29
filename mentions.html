@@ -173,8 +173,41 @@
   </style>
 </head>
 <body>
-  <!-- Header inclus -->
-  <div id="header-placeholder"></div>
+  <!-- HEADER GLOBAL -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="index.html" class="header-logo">
+        <span class="logo-icon">🎤</span>
+        <span class="logo-text">Bot Vocal IA</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html">Accueil</a>
+        <a href="a-propos.html">À propos</a>
+        <a href="tarifs.html">Tarifs</a>
+        <a href="demo-interactive.html">Démo</a>
+        <a href="faq.html">FAQ</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="mentions.html" class="active">Mentions</a>
+      </nav>
+      <div class="header-burger" id="headerBurger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+  <script>
+    // Burger menu mobile
+    const burger = document.getElementById('headerBurger');
+    const nav = document.querySelector('.header-nav');
+    if (burger && nav) {
+      burger.onclick = () => nav.classList.toggle('open');
+      document.addEventListener('click', (e) => {
+        if (!burger.contains(e.target) && !nav.contains(e.target)) {
+          nav.classList.remove('open');
+        }
+      });
+    }
+  </script>
 
   <div class="mentions-hero">
     <h1>Mentions légales</h1>
@@ -238,16 +271,6 @@
   </div>
 
   <script>
-    // Charger le header
-    fetch('header.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('header-placeholder').innerHTML = html;
-      })
-      .catch(error => {
-        console.error('Erreur lors du chargement du header:', error);
-      });
-
     // Animation des sections au scroll
     const observerOptions = {
       threshold: 0.1,
