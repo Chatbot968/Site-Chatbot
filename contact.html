@@ -376,6 +376,220 @@
       color: #a8b2ff !important;
       text-decoration: none !important;
     }
+
+    /* FORMULAIRE MULTI-ÉTAPES */
+    .multi-step-form {
+      position: relative;
+    }
+
+    .form-progress {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .form-progress::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    .progress-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: #b8c5ff;
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .progress-step.active .step-number {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-color: #667eea;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .progress-step.completed .step-number {
+      background: linear-gradient(135deg, #4ade80, #22c55e);
+      border-color: #4ade80;
+      color: #fff;
+    }
+
+    .step-label {
+      font-size: 0.9rem;
+      color: #b8c5ff;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .progress-step.active .step-label {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .form-step {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-navigation {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .form-navigation .form-button {
+      flex: 1;
+    }
+
+    .prev-step {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .prev-step:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .form-summary {
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .form-summary h3 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .summary-item strong {
+      color: #a8b2ff;
+      font-weight: 600;
+    }
+
+    .summary-item span {
+      color: #fff;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      color: #b8c5ff;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      display: none;
+    }
+
+    .checkmark {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      position: relative;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked + .checkmark {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-color: #667eea;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked + .checkmark::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    /* Responsive pour le formulaire multi-étapes */
+    @media (max-width: 768px) {
+      .form-progress {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .form-progress::before {
+        display: none;
+      }
+
+      .progress-step {
+        flex-direction: row;
+        gap: 15px;
+      }
+
+      .step-number {
+        margin-bottom: 0;
+      }
+
+      .form-navigation {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
@@ -413,6 +627,129 @@
         }
       });
     }
+
+    // FORMULAIRE MULTI-ÉTAPES
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    function nextStep(step) {
+      if (validateStep(step)) {
+        if (step < totalSteps) {
+          showStep(step + 1);
+          updateProgress(step + 1);
+        }
+      }
+    }
+
+    function prevStep(step) {
+      if (step > 1) {
+        showStep(step - 1);
+        updateProgress(step - 1);
+      }
+    }
+
+    function showStep(step) {
+      // Masquer toutes les étapes
+      document.querySelectorAll('.form-step').forEach(el => {
+        el.classList.remove('active');
+      });
+
+      // Afficher l'étape actuelle
+      document.querySelector(`[data-step="${step}"]`).classList.add('active');
+      currentStep = step;
+
+      // Mettre à jour le récapitulatif si on est à l'étape 3
+      if (step === 3) {
+        updateSummary();
+      }
+    }
+
+    function updateProgress(step) {
+      // Mettre à jour les indicateurs de progression
+      document.querySelectorAll('.progress-step').forEach((el, index) => {
+        const stepNumber = index + 1;
+        el.classList.remove('active', 'completed');
+        
+        if (stepNumber < step) {
+          el.classList.add('completed');
+        } else if (stepNumber === step) {
+          el.classList.add('active');
+        }
+      });
+    }
+
+    function validateStep(step) {
+      const requiredFields = {
+        1: ['fullName', 'email'],
+        2: ['projectType', 'projectDescription']
+      };
+
+      if (requiredFields[step]) {
+        let isValid = true;
+        requiredFields[step].forEach(fieldId => {
+          const field = document.getElementById(fieldId);
+          if (!field.value.trim()) {
+            field.style.borderColor = '#ef4444';
+            isValid = false;
+          } else {
+            field.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+          }
+        });
+        return isValid;
+      }
+      return true;
+    }
+
+    function updateSummary() {
+      document.getElementById('summaryName').textContent = document.getElementById('fullName').value;
+      document.getElementById('summaryEmail').textContent = document.getElementById('email').value;
+      document.getElementById('summaryProject').textContent = document.getElementById('projectType').value;
+      document.getElementById('summaryBudget').textContent = document.getElementById('budget').value || 'Non spécifié';
+    }
+
+    function submitForm() {
+      if (document.getElementById('terms').checked) {
+        // Simulation d'envoi
+        const submitBtn = document.querySelector('.submit-form');
+        submitBtn.textContent = 'Envoi en cours...';
+        submitBtn.disabled = true;
+
+        setTimeout(() => {
+          alert('✅ Votre demande a été envoyée avec succès ! Nous vous répondrons dans les plus brefs délais.');
+          // Reset du formulaire
+          document.querySelectorAll('.form-input, .form-textarea, select').forEach(field => {
+            field.value = '';
+          });
+          document.getElementById('terms').checked = false;
+          showStep(1);
+          updateProgress(1);
+          submitBtn.textContent = 'Envoyer la demande';
+          submitBtn.disabled = false;
+        }, 2000);
+      } else {
+        alert('⚠️ Veuillez accepter les conditions d\'utilisation.');
+      }
+    }
+
+    // Validation en temps réel
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = document.querySelectorAll('.form-input, .form-textarea, select');
+      inputs.forEach(input => {
+        input.addEventListener('blur', () => {
+          if (input.hasAttribute('required') && !input.value.trim()) {
+            input.style.borderColor = '#ef4444';
+          } else {
+            input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+          }
+        });
+
+        input.addEventListener('input', () => {
+          if (input.value.trim()) {
+            input.style.borderColor = 'rgba(102, 126, 234, 0.5)';
+          }
+        });
+      });
+    });
   </script>
 
   <div class="contact-hero">
@@ -424,56 +761,124 @@
     <div class="contact-grid">
       <!-- Formulaire de contact -->
       <div class="contact-form-section">
-        <h2 class="form-title">
-          <span class="icon">📝</span>
-          Envoyez-nous un message
-        </h2>
-        
-        <div class="success-message" id="successMessage">
-          ✅ Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.
+        <div class="form-title">
+          <span class="icon">📧</span>
+          Contactez-nous
         </div>
         
-        <div class="error-message" id="errorMessage">
-          ❌ Une erreur s'est produite. Veuillez réessayer ou nous contacter directement.
+        <!-- FORMULAIRE MULTI-ÉTAPES -->
+        <div class="multi-step-form">
+          <!-- Indicateur de progression -->
+          <div class="form-progress">
+            <div class="progress-step active" data-step="1">
+              <div class="step-number">1</div>
+              <div class="step-label">Informations</div>
+            </div>
+            <div class="progress-step" data-step="2">
+              <div class="step-number">2</div>
+              <div class="step-label">Projet</div>
+            </div>
+            <div class="progress-step" data-step="3">
+              <div class="step-number">3</div>
+              <div class="step-label">Validation</div>
+            </div>
+          </div>
+
+          <!-- Étape 1: Informations de base -->
+          <div class="form-step active" data-step="1">
+            <div class="form-group">
+              <label class="form-label">Nom complet *</label>
+              <input type="text" class="form-input" id="fullName" placeholder="Votre nom complet" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input type="email" class="form-input" id="email" placeholder="votre@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Téléphone</label>
+              <input type="tel" class="form-input" id="phone" placeholder="+33 6 12 34 56 78">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Entreprise</label>
+              <input type="text" class="form-input" id="company" placeholder="Nom de votre entreprise">
+            </div>
+            <div class="form-navigation">
+              <button type="button" class="form-button next-step" onclick="nextStep(1)">Suivant</button>
+            </div>
+          </div>
+
+          <!-- Étape 2: Détails du projet -->
+          <div class="form-step" data-step="2">
+            <div class="form-group">
+              <label class="form-label">Type de projet *</label>
+              <select class="form-input" id="projectType" required>
+                <option value="">Sélectionnez un type</option>
+                <option value="ecommerce">E-commerce</option>
+                <option value="service">Service professionnel</option>
+                <option value="coaching">Coaching/Formation</option>
+                <option value="other">Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Budget estimé</label>
+              <select class="form-input" id="budget">
+                <option value="">Sélectionnez un budget</option>
+                <option value="49-149">49€ - 149€/mois</option>
+                <option value="150-299">150€ - 299€/mois</option>
+                <option value="300+">300€+/mois</option>
+                <option value="custom">Sur devis</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Délai souhaité</label>
+              <select class="form-input" id="timeline">
+                <option value="">Sélectionnez un délai</option>
+                <option value="immediate">Immédiat</option>
+                <option value="1week">1 semaine</option>
+                <option value="1month">1 mois</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Description du projet *</label>
+              <textarea class="form-textarea" id="projectDescription" placeholder="Décrivez votre projet et vos besoins..." required></textarea>
+            </div>
+            <div class="form-navigation">
+              <button type="button" class="form-button prev-step" onclick="prevStep(2)">Précédent</button>
+              <button type="button" class="form-button next-step" onclick="nextStep(2)">Suivant</button>
+            </div>
+          </div>
+
+          <!-- Étape 3: Validation et envoi -->
+          <div class="form-step" data-step="3">
+            <div class="form-summary">
+              <h3>Récapitulatif de votre demande</h3>
+              <div class="summary-item">
+                <strong>Nom :</strong> <span id="summaryName"></span>
+              </div>
+              <div class="summary-item">
+                <strong>Email :</strong> <span id="summaryEmail"></span>
+              </div>
+              <div class="summary-item">
+                <strong>Projet :</strong> <span id="summaryProject"></span>
+              </div>
+              <div class="summary-item">
+                <strong>Budget :</strong> <span id="summaryBudget"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="checkbox-item">
+                <input type="checkbox" id="terms" required>
+                <span class="checkmark"></span>
+                J'accepte les conditions d'utilisation et la politique de confidentialité
+              </label>
+            </div>
+            <div class="form-navigation">
+              <button type="button" class="form-button prev-step" onclick="prevStep(3)">Précédent</button>
+              <button type="submit" class="form-button submit-form" onclick="submitForm()">Envoyer la demande</button>
+            </div>
+          </div>
         </div>
-
-        <form class="contact-form" id="contactForm">
-          <div class="form-group">
-            <label class="form-label">Nom complet *</label>
-            <input type="text" class="form-input" name="name" required placeholder="Votre nom complet">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Email *</label>
-            <input type="email" class="form-input" name="email" required placeholder="votre@email.com">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Téléphone</label>
-            <input type="tel" class="form-input" name="phone" placeholder="+33 1 23 45 67 89">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Sujet *</label>
-            <select class="form-input" name="subject" required>
-              <option value="">Choisissez un sujet</option>
-              <option value="demo">Demande de démo</option>
-              <option value="pricing">Question sur les tarifs</option>
-              <option value="integration">Aide à l'intégration</option>
-              <option value="support">Support technique</option>
-              <option value="other">Autre</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Message *</label>
-            <textarea class="form-textarea" name="message" required placeholder="Décrivez votre projet ou votre question..."></textarea>
-          </div>
-
-          <button type="submit" class="form-button">
-            <span>Envoyer le message</span>
-          </button>
-        </form>
       </div>
 
       <!-- Informations de contact -->
@@ -533,43 +938,6 @@
   </div>
 
   <script>
-    // Gestion du formulaire
-    const contactForm = document.getElementById('contactForm');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Simuler l'envoi du formulaire
-      const formData = new FormData(this);
-      const submitButton = this.querySelector('.form-button');
-      const originalText = submitButton.innerHTML;
-      
-      // Afficher l'état de chargement
-      submitButton.innerHTML = '<span>Envoi en cours...</span>';
-      submitButton.disabled = true;
-      
-      // Simuler un délai d'envoi
-      setTimeout(() => {
-        // Simuler un succès (dans un vrai projet, ce serait une requête AJAX)
-        successMessage.style.display = 'block';
-        errorMessage.style.display = 'none';
-        
-        // Réinitialiser le formulaire
-        contactForm.reset();
-        
-        // Restaurer le bouton
-        submitButton.innerHTML = originalText;
-        submitButton.disabled = false;
-        
-        // Masquer le message de succès après 5 secondes
-        setTimeout(() => {
-          successMessage.style.display = 'none';
-        }, 5000);
-      }, 2000);
-    });
-
     // Animation des sections au scroll
     const observerOptions = {
       threshold: 0.1,

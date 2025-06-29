@@ -746,6 +746,239 @@
       outline: 2px solid rgba(102, 126, 234, 0.5);
       outline-offset: 2px;
     }
+
+    /* SECTION STATISTIQUES ANIMÉES */
+    .stats-section {
+      padding: 80px 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      margin-top: 60px;
+      position: relative;
+    }
+
+    .stats-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 15, 35, 0.6) 0%, rgba(26, 26, 46, 0.3) 100%);
+      backdrop-filter: blur(20px);
+      z-index: -1;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-item {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      padding: 40px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      border-color: rgba(102, 126, 234, 0.3);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
+    }
+
+    .stat-label {
+      color: #b8c5ff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      filter: drop-shadow(0 0 10px rgba(102, 126, 234, 0.5));
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* SECTION "ILS NOUS FONT CONFIANCE" */
+    .trusted-by {
+      padding: 80px 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      margin-top: 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .trusted-by::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 15, 35, 0.6) 0%, rgba(26, 26, 46, 0.3) 100%);
+      backdrop-filter: blur(20px);
+      z-index: -1;
+    }
+
+    .trusted-by h3 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 50px;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 0%, #a8b2ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .logo-item {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      padding: 30px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .logo-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: rgba(102, 126, 234, 0.3);
+    }
+
+    .logo-item:hover::before {
+      left: 100%;
+    }
+
+    .logo-placeholder {
+      color: #b8c5ff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+
+    .logo-item:hover .logo-placeholder {
+      color: #fff;
+      opacity: 1;
+    }
+
+    /* ANIMATIONS D'ENTRÉE */
+    .animate-in {
+      animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animation en cascade */
+    .stats-section .stat-item,
+    .trusted-by .logo-item,
+    .benefits .benefit-item {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .stats-section.animate-in .stat-item,
+    .trusted-by.animate-in .logo-item,
+    .benefits.animate-in .benefit-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive pour les nouvelles sections */
+    @media (max-width: 768px) {
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      
+      .logos-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
+      
+      .stat-label {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .logos-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -954,6 +1187,57 @@
     <div class="benefit-item">
       <img src="img/support.svg" alt="Support" class="benefit-icon"/>
       <span>Support premium inclus</span>
+    </div>
+  </section>
+
+  <!-- SECTION STATISTIQUES ANIMÉES -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-number" data-target="500">0</div>
+        <div class="stat-label">Clients satisfaits</div>
+        <div class="stat-icon">👥</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="15000">0</div>
+        <div class="stat-label">Conversations/mois</div>
+        <div class="stat-icon">💬</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="98">0</div>
+        <div class="stat-label">% de satisfaction</div>
+        <div class="stat-icon">⭐</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="24">0</div>
+        <div class="stat-label">Heures de support</div>
+        <div class="stat-icon">🕒</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION "ILS NOUS FONT CONFIANCE" -->
+  <section class="trusted-by">
+    <h3>Ils nous font confiance</h3>
+    <div class="logos-grid">
+      <div class="logo-item">
+        <div class="logo-placeholder">BeautyCorp</div>
+      </div>
+      <div class="logo-item">
+        <div class="logo-placeholder">FitLife</div>
+      </div>
+      <div class="logo-item">
+        <div class="logo-placeholder">HomeStyle</div>
+      </div>
+      <div class="logo-item">
+        <div class="logo-placeholder">TechFlow</div>
+      </div>
+      <div class="logo-item">
+        <div class="logo-placeholder">EduPlus</div>
+      </div>
+      <div class="logo-item">
+        <div class="logo-placeholder">ShopSmart</div>
+      </div>
     </div>
   </section>
 
@@ -1183,6 +1467,65 @@
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
         observer.observe(el);
+      });
+    });
+
+    // COMPTEURS ANIMÉS
+    function animateCounter(element, target) {
+      let current = 0;
+      const increment = target / 100;
+      const timer = setInterval(() => {
+        current += increment;
+        element.textContent = Math.floor(current);
+        if (current >= target) {
+          element.textContent = target;
+          clearInterval(timer);
+        }
+      }, 20);
+    }
+
+    // Observer pour déclencher les compteurs
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const statNumber = entry.target.querySelector('.stat-number');
+          const target = parseInt(statNumber.getAttribute('data-target'));
+          animateCounter(statNumber, target);
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    // Observer les éléments de statistiques
+    document.addEventListener('DOMContentLoaded', () => {
+      const statItems = document.querySelectorAll('.stat-item');
+      statItems.forEach(item => {
+        statsObserver.observe(item);
+      });
+    });
+
+    // ANIMATIONS D'ENTRÉE AMÉLIORÉES
+    const enhancedObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          
+          // Animation en cascade pour les enfants
+          const children = entry.target.querySelectorAll('.stat-item, .logo-item, .benefit-item');
+          children.forEach((child, index) => {
+            setTimeout(() => {
+              child.classList.add('animate-in');
+            }, index * 100);
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Observer les nouvelles sections
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('.stats-section, .trusted-by, .benefits');
+      sections.forEach(section => {
+        enhancedObserver.observe(section);
       });
     });
   </script>

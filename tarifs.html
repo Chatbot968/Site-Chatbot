@@ -375,6 +375,194 @@
       color: #a8b2ff !important;
       text-decoration: none !important;
     }
+
+    /* CALCULATEUR DE PRIX */
+    .price-calculator {
+      padding: 80px 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      margin: 60px 0;
+      position: relative;
+    }
+
+    .price-calculator::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 15, 35, 0.6) 0%, rgba(26, 26, 46, 0.3) 100%);
+      backdrop-filter: blur(20px);
+      z-index: -1;
+    }
+
+    .calculator-container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .calculator-container h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 50px;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 0%, #a8b2ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .calculator-form {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-group {
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      color: #fff;
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .slider-container {
+      position: relative;
+    }
+
+    .slider-container input[type="range"] {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      -webkit-appearance: none;
+      margin-bottom: 10px;
+    }
+
+    .slider-container input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+
+    .slider-value {
+      color: #b8c5ff;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .checkbox-item:hover {
+      background: rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      display: none;
+    }
+
+    .checkmark {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked + .checkmark {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-color: #667eea;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked + .checkmark::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+    .price-result {
+      margin-top: 40px;
+      padding: 30px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 16px;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .calculated-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .price-amount {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .price-currency {
+      font-size: 1.5rem;
+      color: #b8c5ff;
+      font-weight: 600;
+    }
+
+    .price-plan {
+      color: #667eea;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
   </style>
 </head>
 <body>
@@ -412,12 +600,130 @@
         }
       });
     }
+
+    // CALCULATEUR DE PRIX INTERACTIF
+    const conversationsSlider = document.getElementById('conversations');
+    const conversationsValue = document.getElementById('conversationsValue');
+    const calculatedPrice = document.getElementById('calculatedPrice');
+    const pricePlan = document.getElementById('pricePlan');
+    const faqAi = document.getElementById('faq-ai');
+    const analytics = document.getElementById('analytics');
+    const multisite = document.getElementById('multisite');
+
+    function calculatePrice() {
+      const conversations = parseInt(conversationsSlider.value);
+      let basePrice = 49;
+      let plan = 'Starter';
+
+      // Calcul du prix de base selon les conversations
+      if (conversations <= 500) {
+        basePrice = 49;
+        plan = 'Starter';
+      } else if (conversations <= 5000) {
+        basePrice = 149;
+        plan = 'Pro';
+      } else {
+        basePrice = 299;
+        plan = 'Business';
+      }
+
+      // Ajout des fonctionnalités
+      let additionalCost = 0;
+      if (faqAi.checked) additionalCost += 30;
+      if (analytics.checked) additionalCost += 25;
+      if (multisite.checked) additionalCost += 50;
+
+      const totalPrice = basePrice + additionalCost;
+
+      // Animation du prix
+      animatePriceChange(calculatedPrice, totalPrice);
+      pricePlan.textContent = `Plan ${plan}`;
+    }
+
+    function animatePriceChange(element, newPrice) {
+      const currentPrice = parseInt(element.textContent);
+      const difference = newPrice - currentPrice;
+      const steps = 20;
+      const stepValue = difference / steps;
+      let currentStep = 0;
+
+      const animation = setInterval(() => {
+        currentStep++;
+        const newValue = Math.round(currentPrice + (stepValue * currentStep));
+        element.textContent = newValue;
+
+        if (currentStep >= steps) {
+          element.textContent = newPrice;
+          clearInterval(animation);
+        }
+      }, 50);
+    }
+
+    // Event listeners
+    conversationsSlider.addEventListener('input', function() {
+      conversationsValue.textContent = this.value;
+      calculatePrice();
+    });
+
+    faqAi.addEventListener('change', calculatePrice);
+    analytics.addEventListener('change', calculatePrice);
+    multisite.addEventListener('change', calculatePrice);
+
+    // Initialisation
+    calculatePrice();
   </script>
 
   <div class="tarifs-hero">
     <h1>Tarifs détaillés</h1>
     <p>Choisissez l'offre qui correspond à vos besoins. Sans engagement, évolutif à tout moment.</p>
   </div>
+
+  <!-- CALCULATEUR DE PRIX INTERACTIF -->
+  <section class="price-calculator">
+    <div class="calculator-container">
+      <h2>Calculez votre prix personnalisé</h2>
+      <div class="calculator-form">
+        <div class="input-group">
+          <label for="conversations">Conversations par mois :</label>
+          <div class="slider-container">
+            <input type="range" id="conversations" min="100" max="10000" value="500" step="100">
+            <div class="slider-value">
+              <span id="conversationsValue">500</span> conversations
+            </div>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label for="features">Fonctionnalités avancées :</label>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" id="faq-ai">
+              <span class="checkmark"></span>
+              FAQ IA intelligente
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="analytics">
+              <span class="checkmark"></span>
+              Statistiques avancées
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="multisite">
+              <span class="checkmark"></span>
+              Multi-sites
+            </label>
+          </div>
+        </div>
+        
+        <div class="price-result">
+          <div class="calculated-price">
+            <span class="price-amount" id="calculatedPrice">49</span>
+            <span class="price-currency">€/mois</span>
+          </div>
+          <div class="price-plan" id="pricePlan">Plan Starter</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <div class="pricing-container">
     <div class="pricing-grid">
