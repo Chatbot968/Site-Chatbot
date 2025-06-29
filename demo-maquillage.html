@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>BeautyGlow - Maquillage Professionnel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+      color: #333;
+    }
+    
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #e91e63;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #e91e63;
+    }
+    
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(45deg, #ff9a9e, #fecfef);
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 2rem;
+    }
+    
+    .cta-btn {
+      background: #e91e63;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .products {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .products h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #333;
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .product-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    
+    .product-info {
+      padding: 1.5rem;
+    }
+    
+    .product-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .product-desc {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #e91e63;
+      margin-bottom: 1rem;
+    }
+    
+    .buy-btn {
+      background: #e91e63;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+    
+    .buy-btn:hover {
+      background: #c2185b;
+    }
+    
+    .footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">BeautyGlow</div>
+      <ul class="nav-links">
+        <li><a href="#products">Produits</a></li>
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Révélez votre beauté naturelle</h1>
+    <p>Découvrez notre gamme de maquillage professionnel adaptée à tous les types de peau</p>
+    <button class="cta-btn">Découvrir nos produits</button>
+  </section>
+
+  <section class="products" id="products">
+    <h2>Nos Produits Vedettes</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=400&h=250&fit=crop" alt="Fond de teint" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Fond de teint hydratant</h3>
+          <p class="product-desc">Fond de teint longue tenue avec protection SPF 30, adapté aux peaux sensibles</p>
+          <div class="product-price">29,90 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=250&fit=crop" alt="Palette yeux" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Palette yeux nudes</h3>
+          <p class="product-desc">18 teintes mates et nacrées pour des looks naturels ou sophistiqués</p>
+          <div class="product-price">45,00 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&h=250&fit=crop" alt="Rouge à lèvres" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Rouge à lèvres mat</h3>
+          <p class="product-desc">Rouge à lèvres longue tenue, 12h de couleur intense sans transfert</p>
+          <div class="product-price">24,90 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=250&fit=crop" alt="Mascara" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Mascara volume intense</h3>
+          <p class="product-desc">Mascara waterproof qui allonge et épaissit les cils instantanément</p>
+          <div class="product-price">19,90 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&h=250&fit=crop" alt="Poudre" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Poudre libre matifiante</h3>
+          <p class="product-desc">Poudre ultra-fine qui matifie et fixe le maquillage toute la journée</p>
+          <div class="product-price">22,90 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=250&fit=crop" alt="Blush" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Blush rosé poudré</h3>
+          <p class="product-desc">Blush pigmenté qui apporte un éclat naturel et un teint frais</p>
+          <div class="product-price">18,90 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 BeautyGlow. Tous droits réservés.</p>
+  </footer>
+
+  <!-- Bot vocal intégré -->
+  <script 
+    src="https://chatbot-owsk.onrender.com/chatbot.js"
+    data-client-id="beautyglow-demo"
+    data-backend-url="https://backend-dxeo.onrender.com"
+  ></script>
+</body>
+</html> 

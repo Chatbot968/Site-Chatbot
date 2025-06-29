@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>HomeStyle - Meubles & Décoration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: #333;
+    }
+    
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #f093fb;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #f093fb;
+    }
+    
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(45deg, #f093fb, #f5576c);
+      color: white;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .cta-btn {
+      background: #fff;
+      color: #f093fb;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+      font-weight: bold;
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .categories {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+    }
+    
+    .categories h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #333;
+    }
+    
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .category-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      text-align: center;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .category-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .category-info {
+      padding: 1.5rem;
+    }
+    
+    .category-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .category-desc {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    
+    .explore-btn {
+      background: #f093fb;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .explore-btn:hover {
+      background: #e67ed6;
+    }
+    
+    .products {
+      padding: 4rem 2rem;
+      background: #f8f9fa;
+    }
+    
+    .products h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #333;
+    }
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .product-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    
+    .product-info {
+      padding: 1.5rem;
+    }
+    
+    .product-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .product-desc {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #f093fb;
+      margin-bottom: 1rem;
+    }
+    
+    .buy-btn {
+      background: #f093fb;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+    
+    .buy-btn:hover {
+      background: #e67ed6;
+    }
+    
+    .features {
+      padding: 4rem 2rem;
+      background: white;
+    }
+    
+    .features h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #333;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .feature-card {
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #f093fb;
+    }
+    
+    .feature-title {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    
+    .feature-desc {
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    .footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .category-grid,
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">HomeStyle</div>
+      <ul class="nav-links">
+        <li><a href="#categories">Catégories</a></li>
+        <li><a href="#products">Produits</a></li>
+        <li><a href="#features">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Créez votre intérieur de rêve</h1>
+    <p>Découvrez notre collection de meubles et décoration pour tous les styles</p>
+    <button class="cta-btn">Explorer la collection</button>
+  </section>
+
+  <section class="categories" id="categories">
+    <h2>Nos Catégories</h2>
+    <div class="category-grid">
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=200&fit=crop" alt="Salon" class="category-img">
+        <div class="category-info">
+          <h3 class="category-title">Salon</h3>
+          <p class="category-desc">Canapés, tables basses, fauteuils et plus</p>
+          <button class="explore-btn">Explorer</button>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1505693314120-0d443867891c?w=400&h=200&fit=crop" alt="Chambre" class="category-img">
+        <div class="category-info">
+          <h3 class="category-title">Chambre</h3>
+          <p class="category-desc">Lits, armoires, commodes et literie</p>
+          <button class="explore-btn">Explorer</button>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=200&fit=crop" alt="Cuisine" class="category-img">
+        <div class="category-info">
+          <h3 class="category-title">Cuisine</h3>
+          <p class="category-desc">Tables, chaises, vaisseliers et accessoires</p>
+          <button class="explore-btn">Explorer</button>
+        </div>
+      </div>
+      
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=200&fit=crop" alt="Bureau" class="category-img">
+        <div class="category-info">
+          <h3 class="category-title">Bureau</h3>
+          <p class="category-desc">Bureaux, chaises, étagères et rangements</p>
+          <button class="explore-btn">Explorer</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <h2>Produits Vedettes</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=250&fit=crop" alt="Canapé moderne" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Canapé moderne 3 places</h3>
+          <p class="product-desc">Canapé design en velours avec structure en bois massif</p>
+          <div class="product-price">899 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1505693314120-0d443867891c?w=400&h=250&fit=crop" alt="Lit king size" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Lit king size avec tête de lit</h3>
+          <p class="product-desc">Lit élégant en chêne massif avec tête de lit rembourrée</p>
+          <div class="product-price">1 299 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=250&fit=crop" alt="Table de salle à manger" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Table de salle à manger extensible</h3>
+          <p class="product-desc">Table en bois massif extensible de 4 à 8 personnes</p>
+          <div class="product-price">649 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=250&fit=crop" alt="Armoire vintage" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Armoire vintage 3 portes</h3>
+          <p class="product-desc">Armoire rétro en bois massif avec miroir intégré</p>
+          <div class="product-price">799 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=250&fit=crop" alt="Fauteuil accent" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Fauteuil accent coloré</h3>
+          <p class="product-desc">Fauteuil confortable avec tissu résistant et design moderne</p>
+          <div class="product-price">349 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1505693314120-0d443867891c?w=400&h=250&fit=crop" alt="Étagère murale" class="product-img">
+        <div class="product-info">
+          <h3 class="product-title">Étagère murale design</h3>
+          <p class="product-desc">Étagère moderne en métal et bois pour tous vos objets</p>
+          <div class="product-price">129 €</div>
+          <button class="buy-btn">Ajouter au panier</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Nos Services</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚚</div>
+        <h3 class="feature-title">Livraison gratuite</h3>
+        <p class="feature-desc">Livraison gratuite à domicile pour toute commande supérieure à 200€</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔧</div>
+        <h3 class="feature-title">Montage inclus</h3>
+        <p class="feature-desc">Service de montage professionnel inclus pour tous nos meubles</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3 class="feature-title">Retour facile</h3>
+        <p class="feature-desc">30 jours pour changer d'avis avec retour gratuit</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3 class="feature-title">Conseil expert</h3>
+        <p class="feature-desc">Notre équipe d'experts vous accompagne dans vos choix</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 HomeStyle. Tous droits réservés.</p>
+  </footer>
+
+  <!-- Bot vocal intégré -->
+  <script 
+    src="https://chatbot-owsk.onrender.com/chatbot.js"
+    data-client-id="homestyle-demo"
+    data-backend-url="https://backend-dxeo.onrender.com"
+  ></script>
+</body>
+</html> 

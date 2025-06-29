@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>FitPro - Coaching Sportif Personnalisé</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+    }
+    
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #667eea;
+    }
+    
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .cta-btn {
+      background: #ff6b6b;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .services {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+    }
+    
+    .services h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #333;
+    }
+    
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    
+    .service-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      border: 2px solid #f8f9fa;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      border-color: #667eea;
+    }
+    
+    .service-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .service-info {
+      padding: 1.5rem;
+    }
+    
+    .service-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .service-desc {
+      color: #666;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    
+    .service-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+    
+    .service-features li {
+      padding: 0.3rem 0;
+      color: #555;
+    }
+    
+    .service-features li:before {
+      content: "✓";
+      color: #667eea;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+    
+    .service-price {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+    
+    .book-btn {
+      background: #667eea;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+    
+    .book-btn:hover {
+      background: #5a6fd8;
+    }
+    
+    .testimonials {
+      padding: 4rem 2rem;
+      background: #f8f9fa;
+    }
+    
+    .testimonials h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: #333;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .testimonial-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1rem;
+      color: #555;
+    }
+    
+    .testimonial-author {
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <div class="logo">FitPro</div>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#testimonials">Témoignages</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Transformez votre vie avec FitPro</h1>
+    <p>Coaching sportif personnalisé pour atteindre vos objectifs fitness</p>
+    <button class="cta-btn">Réserver ma séance</button>
+  </section>
+
+  <section class="services" id="services">
+    <h2>Nos Programmes de Coaching</h2>
+    <div class="service-grid">
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=200&fit=crop" alt="Coaching débutant" class="service-img">
+        <div class="service-info">
+          <h3 class="service-title">Programme Débutant</h3>
+          <p class="service-desc">Parfait pour reprendre le sport en douceur et construire de bonnes bases</p>
+          <ul class="service-features">
+            <li>Évaluation physique complète</li>
+            <li>Programme d'entraînement sur mesure</li>
+            <li>Suivi nutritionnel basique</li>
+            <li>2 séances par semaine</li>
+          </ul>
+          <div class="service-price">89 €/mois</div>
+          <button class="book-btn">Réserver maintenant</button>
+        </div>
+      </div>
+      
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=200&fit=crop" alt="Coaching intermédiaire" class="service-img">
+        <div class="service-info">
+          <h3 class="service-title">Programme Intermédiaire</h3>
+          <p class="service-desc">Pour progresser et atteindre vos objectifs de performance</p>
+          <ul class="service-features">
+            <li>Plan d'entraînement avancé</li>
+            <li>Suivi nutritionnel personnalisé</li>
+            <li>Analyses de performance</li>
+            <li>3 séances par semaine</li>
+            <li>Support WhatsApp inclus</li>
+          </ul>
+          <div class="service-price">149 €/mois</div>
+          <button class="book-btn">Réserver maintenant</button>
+        </div>
+      </div>
+      
+      <div class="service-card">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=200&fit=crop" alt="Coaching premium" class="service-img">
+        <div class="service-info">
+          <h3 class="service-title">Programme Premium</h3>
+          <p class="service-desc">Accompagnement complet pour des résultats exceptionnels</p>
+          <ul class="service-features">
+            <li>Coaching 1 à 1 personnalisé</li>
+            <li>Plan nutritionnel détaillé</li>
+            <li>Suivi quotidien</li>
+            <li>5 séances par semaine</li>
+            <li>Support 24/7</li>
+            <li>Évaluations mensuelles</li>
+          </ul>
+          <div class="service-price">299 €/mois</div>
+          <button class="book-btn">Réserver maintenant</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <h2>Témoignages de nos clients</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Grâce à FitPro, j'ai perdu 15kg en 6 mois et je me sens plus en forme que jamais !"</p>
+        <div class="testimonial-author">- Marie, 34 ans</div>
+      </div>
+      
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Mon coach m'a aidé à préparer mon premier marathon. Résultat : objectif atteint !"</p>
+        <div class="testimonial-author">- Thomas, 28 ans</div>
+      </div>
+      
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Après 2 ans sans sport, j'ai repris confiance en moi grâce au programme débutant."</p>
+        <div class="testimonial-author">- Sophie, 42 ans</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 FitPro. Tous droits réservés.</p>
+  </footer>
+
+  <!-- Bot vocal intégré -->
+  <script 
+    src="https://chatbot-owsk.onrender.com/chatbot.js"
+    data-client-id="fitpro-demo"
+    data-backend-url="https://backend-dxeo.onrender.com"
+  ></script>
+</body>
+</html> 
