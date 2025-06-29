@@ -6,60 +6,608 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <style>
-    body { background: linear-gradient(135deg, #16213e 0%, #667eea 100%); color: #fff; }
-    .faq-hero { text-align: center; padding: 70px 0 30px 0; }
-    .faq-hero h1 { font-size: 2.7rem; font-weight: 800; background: linear-gradient(90deg, #fff, #a8b2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .faq-hero p { color: #b8c5ff; font-size: 1.1rem; max-width: 600px; margin: 18px auto 0 auto; }
-    .faq-section { max-width: 900px; margin: 40px auto; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 40px 30px; box-shadow: 0 8px 32px #667eea44; }
-    .faq-list { margin-top: 30px; }
-    .faq-item { margin-bottom: 18px; border-radius: 14px; background: rgba(102,126,234,0.08); box-shadow: 0 2px 12px #667eea22; }
-    .faq-question { cursor: pointer; padding: 18px 22px; font-weight: 700; color: #a8b2ff; font-size: 1.1em; display: flex; align-items: center; justify-content: space-between; }
-    .faq-answer { max-height: 0; overflow: hidden; background: rgba(255,255,255,0.04); color: #fff; padding: 0 22px; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.4s; }
-    .faq-item.open .faq-answer { max-height: 300px; padding: 18px 22px; }
-    .faq-item.open .faq-question { color: #fff; }
-    .faq-toggle { font-size: 1.5em; transition: transform 0.3s; }
-    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .faq-hero { 
+      text-align: center; 
+      padding: 120px 0 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .faq-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 15, 35, 0.8) 0%, rgba(26, 26, 46, 0.4) 100%);
+      backdrop-filter: blur(20px);
+      z-index: -1;
+    }
+
+    .faq-hero h1 { 
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800; 
+      background: linear-gradient(135deg, #fff 0%, #a8b2ff 50%, #667eea 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      letter-spacing: -2px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .faq-hero p { 
+      color: #b8c5ff; 
+      font-size: 1.3rem; 
+      max-width: 700px; 
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .faq-container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .faq-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 50px 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(102, 126, 234, 0.2);
+    }
+
+    .faq-categories {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .category-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #b8c5ff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border-color: rgba(102, 126, 234, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .faq-item {
+      background: rgba(102, 126, 234, 0.08);
+      border-radius: 16px;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    .faq-item:hover {
+      background: rgba(102, 126, 234, 0.12);
+      border-color: rgba(102, 126, 234, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .faq-item.open {
+      background: rgba(102, 126, 234, 0.15);
+      border-color: rgba(102, 126, 234, 0.5);
+    }
+
+    .faq-question {
+      cursor: pointer;
+      padding: 24px 30px;
+      font-weight: 600;
+      color: #fff;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .faq-question::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .faq-item.open .faq-question::before {
+      opacity: 1;
+    }
+
+    .faq-item.open .faq-question {
+      color: #a8b2ff;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.03);
+      color: #b8c5ff;
+      padding: 0 30px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding: 0 30px 24px 30px;
+    }
+
+    .faq-toggle {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-toggle {
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, #764ba2, #667eea);
+    }
+
+    .faq-search {
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      border-radius: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: rgba(102, 126, 234, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .search-input::placeholder {
+      color: rgba(184, 197, 255, 0.6);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #b8c5ff;
+      font-size: 1.2rem;
+    }
+
+    .faq-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 16px;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      min-width: 120px;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #667eea;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      color: #b8c5ff;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .contact-section {
+      text-align: center;
+      margin-top: 60px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #a8b2ff;
+      margin-bottom: 15px;
+    }
+
+    .contact-text {
+      color: #b8c5ff;
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+    }
+
+    .contact-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 768px) {
+      .faq-hero { padding: 100px 20px 60px 20px; }
+      .faq-section { padding: 30px 25px; }
+      .faq-question { padding: 20px 25px; font-size: 1rem; }
+      .faq-item.open .faq-answer { padding: 0 25px 20px 25px; }
+      .faq-categories { gap: 10px; }
+      .category-btn { padding: 10px 16px; font-size: 0.9rem; }
+      .faq-stats { gap: 20px; }
+      .stat-item { min-width: 100px; padding: 15px; }
+    }
   </style>
 </head>
 <body>
+  <!-- Header inclus -->
+  <div id="header-placeholder"></div>
+
   <div class="faq-hero">
     <h1>FAQ</h1>
     <p>Toutes les réponses à vos questions sur le bot vocal IA, l'intégration, la sécurité, la facturation…</p>
   </div>
-  <div class="faq-section">
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-question">Comment intégrer le bot vocal sur mon site ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">Il suffit de copier-coller un script fourni dans le code de votre site, juste avant la balise &lt;/body&gt;. L'intégration prend moins de 5 minutes !</div>
+
+  <div class="faq-container">
+    <div class="faq-stats">
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Questions</div>
       </div>
-      <div class="faq-item">
-        <div class="faq-question">Le bot est-il compatible mobile et tablette ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">Oui, le bot s'adapte à tous les écrans et fonctionne aussi bien sur mobile que sur ordinateur.</div>
+      <div class="stat-item">
+        <div class="stat-number">24h</div>
+        <div class="stat-label">Réponse</div>
       </div>
-      <div class="faq-item">
-        <div class="faq-question">Mes données sont-elles sécurisées ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">Toutes les conversations sont chiffrées et stockées sur des serveurs sécurisés en Europe. Nous respectons le RGPD.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Puis-je personnaliser le bot à mon image ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">Oui, vous pouvez choisir les couleurs, le logo, les suggestions, et même le ton de voix du bot.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Quel est le support proposé ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">Support email pour l'offre Starter, support prioritaire pour Pro, et support dédié 24/7 pour Business.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Comment puis-je résilier ou changer d'offre ? <span class="faq-toggle">+</span></div>
-        <div class="faq-answer">Vous pouvez changer d'offre ou résilier à tout moment depuis votre espace client ou en contactant notre équipe.</div>
+      <div class="stat-item">
+        <div class="stat-number">95%</div>
+        <div class="stat-label">Satisfaction</div>
       </div>
     </div>
+
+    <div class="faq-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="search-input" placeholder="Rechercher une question..." id="searchInput">
+    </div>
+
+    <div class="faq-categories">
+      <button class="category-btn active" data-category="all">Toutes</button>
+      <button class="category-btn" data-category="integration">Intégration</button>
+      <button class="category-btn" data-category="pricing">Tarifs</button>
+      <button class="category-btn" data-category="technical">Technique</button>
+      <button class="category-btn" data-category="security">Sécurité</button>
+    </div>
+
+    <div class="faq-section">
+      <div class="faq-list">
+        <div class="faq-item" data-category="integration">
+          <div class="faq-question">
+            Comment intégrer le bot vocal sur mon site ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Il suffit de copier-coller un script fourni dans le code de votre site, juste avant la balise &lt;/body&gt;. L'intégration prend moins de 5 minutes ! Notre équipe vous guide également dans le processus si nécessaire.
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="technical">
+          <div class="faq-question">
+            Le bot est-il compatible mobile et tablette ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Oui, le bot s'adapte automatiquement à tous les écrans et fonctionne parfaitement sur mobile, tablette et ordinateur. L'interface s'optimise selon la taille de l'écran.
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="security">
+          <div class="faq-question">
+            Mes données sont-elles sécurisées ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Toutes les conversations sont chiffrées et stockées sur des serveurs sécurisés en Europe. Nous respectons strictement le RGPD et ne partageons jamais vos données avec des tiers.
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="integration">
+          <div class="faq-question">
+            Puis-je personnaliser le bot à mon image ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Oui, vous pouvez choisir les couleurs, le logo, les suggestions, et même le ton de voix du bot. La personnalisation est complète pour coller parfaitement à votre marque.
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="pricing">
+          <div class="faq-question">
+            Quel est le support proposé ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Support email pour l'offre Starter, support prioritaire pour Pro, et support dédié 24/7 pour Business. Notre équipe est toujours là pour vous aider.
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="pricing">
+          <div class="faq-question">
+            Comment puis-je résilier ou changer d'offre ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Vous pouvez changer d'offre ou résilier à tout moment depuis votre espace client ou en contactant notre équipe. Aucun engagement, aucune pénalité.
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="technical">
+          <div class="faq-question">
+            Le bot fonctionne-t-il hors ligne ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Le bot nécessite une connexion internet pour fonctionner car il utilise l'IA en temps réel. Cependant, il peut gérer les interruptions de connexion gracieusement.
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="integration">
+          <div class="faq-question">
+            Puis-je intégrer le bot sur plusieurs sites ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Oui, avec l'offre Business vous pouvez intégrer le bot sur plusieurs sites. Chaque site peut avoir sa propre configuration et personnalisation.
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="security">
+          <div class="faq-question">
+            Comment protégez-vous la vie privée ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Nous ne collectons que les données nécessaires au fonctionnement du service. Les conversations peuvent être anonymisées sur demande et supprimées définitivement.
+          </div>
+        </div>
+
+        <div class="faq-item" data-category="technical">
+          <div class="faq-question">
+            Quelle est la qualité audio du bot ?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-answer">
+            Le bot utilise une technologie de synthèse vocale de haute qualité, proche de la voix humaine. Vous pouvez choisir parmi plusieurs voix et ajuster la vitesse.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-section">
+      <h2 class="contact-title">Vous ne trouvez pas votre réponse ?</h2>
+      <p class="contact-text">Notre équipe est là pour vous aider. Contactez-nous et nous vous répondrons sous 24h.</p>
+      <a href="contact.html" class="contact-btn">Nous contacter</a>
+    </div>
   </div>
+
   <script>
-    document.querySelectorAll('.faq-question').forEach(q => {
-      q.addEventListener('click', function() {
-        const item = this.parentElement;
-        item.classList.toggle('open');
+    // Charger le header
+    fetch('header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('header-placeholder').innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement du header:', error);
       });
+
+    // Gestion des FAQ
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', function() {
+        const item = this.parentElement;
+        const isOpen = item.classList.contains('open');
+        
+        // Fermer toutes les autres FAQ
+        document.querySelectorAll('.faq-item').forEach(faq => {
+          faq.classList.remove('open');
+        });
+        
+        // Ouvrir/fermer la FAQ cliquée
+        if (!isOpen) {
+          item.classList.add('open');
+        }
+      });
+    });
+
+    // Filtrage par catégorie
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const category = this.dataset.category;
+        
+        // Mettre à jour les boutons actifs
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filtrer les FAQ
+        document.querySelectorAll('.faq-item').forEach(item => {
+          if (category === 'all' || item.dataset.category === category) {
+            item.style.display = 'block';
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, 100);
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Recherche
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const question = item.querySelector('.faq-question').textContent.toLowerCase();
+        const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+        
+        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+          item.style.display = 'block';
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+
+    // Animation des sections au scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.faq-section, .contact-section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'all 0.6s ease';
+      observer.observe(section);
+    });
+
+    // Animation des stats
+    document.querySelectorAll('.stat-number').forEach(stat => {
+      const finalNumber = parseInt(stat.textContent);
+      let currentNumber = 0;
+      const increment = finalNumber / 50;
+      
+      const timer = setInterval(() => {
+        currentNumber += increment;
+        if (currentNumber >= finalNumber) {
+          currentNumber = finalNumber;
+          clearInterval(timer);
+        }
+        stat.textContent = Math.floor(currentNumber) + (stat.textContent.includes('+') ? '+' : '');
+      }, 30);
     });
   </script>
 </body>

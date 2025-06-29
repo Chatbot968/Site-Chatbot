@@ -2,38 +2,273 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Mentions légales & RGPD - Bot Vocal IA</title>
+  <title>Mentions légales - Bot Vocal IA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <style>
-    body { background: linear-gradient(135deg, #1a1a2e 0%, #667eea 100%); color: #fff; }
-    .mentions-hero { text-align: center; padding: 70px 0 30px 0; }
-    .mentions-hero h1 { font-size: 2.2rem; font-weight: 800; background: linear-gradient(90deg, #fff, #a8b2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .mentions-section { max-width: 900px; margin: 40px auto; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 40px 30px; box-shadow: 0 8px 32px #667eea44; }
-    .mentions-section h2 { color: #a8b2ff; font-size: 1.2rem; margin-bottom: 10px; }
-    .mentions-section p, .mentions-section li { color: #b8c5ff; font-size: 1em; margin-bottom: 10px; }
-    .mentions-section ul { margin-bottom: 18px; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .mentions-hero { 
+      text-align: center; 
+      padding: 120px 0 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mentions-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 15, 35, 0.8) 0%, rgba(26, 26, 46, 0.4) 100%);
+      backdrop-filter: blur(20px);
+      z-index: -1;
+    }
+
+    .mentions-hero h1 { 
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800; 
+      background: linear-gradient(135deg, #fff 0%, #a8b2ff 50%, #667eea 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      letter-spacing: -2px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .mentions-hero p { 
+      color: #b8c5ff; 
+      font-size: 1.3rem; 
+      max-width: 700px; 
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .mentions-container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .mentions-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 50px 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 40px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mentions-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(102, 126, 234, 0.2);
+    }
+
+    .mentions-section h2 {
+      color: #a8b2ff;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mentions-section h2 .icon {
+      font-size: 1.5em;
+      filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.6));
+    }
+
+    .mentions-section p {
+      color: #b8c5ff;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    .mentions-section ul {
+      margin: 20px 0;
+      padding-left: 25px;
+    }
+
+    .mentions-section li {
+      color: #b8c5ff;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .mentions-section strong {
+      color: #a8b2ff;
+      font-weight: 600;
+    }
+
+    .contact-info {
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 16px;
+      padding: 25px;
+      margin-top: 20px;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+    }
+
+    .contact-info h3 {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+
+    .contact-info p {
+      margin-bottom: 8px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 768px) {
+      .mentions-hero { padding: 100px 20px 60px 20px; }
+      .mentions-section { 
+        margin: 40px 20px;
+        padding: 30px 25px;
+      }
+      .mentions-section h2 { font-size: 1.5rem; }
+    }
   </style>
 </head>
 <body>
+  <!-- Header inclus -->
+  <div id="header-placeholder"></div>
+
   <div class="mentions-hero">
-    <h1>Mentions légales & RGPD</h1>
+    <h1>Mentions légales</h1>
+    <p>Informations légales et conditions d'utilisation de nos services.</p>
   </div>
-  <div class="mentions-section">
-    <h2>Éditeur du site</h2>
-    <p>Bot Vocal IA, 42 avenue de l'IA, Paris</p>
-    <p>Email : contact@botvocal.com</p>
-    <h2>Hébergement</h2>
-    <p>Hébergeur : OVH, 2 rue Kellermann, 59100 Roubaix, France</p>
-    <h2>Protection des données & RGPD</h2>
-    <ul>
-      <li>Les données collectées sont strictement nécessaires à la fourniture du service.</li>
-      <li>Vous disposez d'un droit d'accès, de rectification et de suppression de vos données.</li>
-      <li>Pour toute demande : contact@botvocal.com</li>
-      <li>Le site utilise des cookies techniques uniquement.</li>
-    </ul>
-    <h2>Propriété intellectuelle</h2>
-    <p>Tous les contenus présents sur ce site sont la propriété exclusive de Bot Vocal IA.</p>
+
+  <div class="mentions-container">
+    <div class="mentions-section">
+      <h2><span class="icon">🏢</span> Éditeur du site</h2>
+      <p><strong>Bot Vocal IA</strong> est édité par :</p>
+      <ul>
+        <li><strong>Raison sociale :</strong> Bot Vocal IA SAS</li>
+        <li><strong>Adresse :</strong> 42 avenue de l'IA, 75001 Paris, France</li>
+        <li><strong>Téléphone :</strong> 01 23 45 67 89</li>
+        <li><strong>Email :</strong> contact@botvocal.com</li>
+        <li><strong>SIRET :</strong> 123 456 789 00012</li>
+        <li><strong>Directeur de publication :</strong> Jean Dupont</li>
+      </ul>
+    </div>
+
+    <div class="mentions-section">
+      <h2><span class="icon">🌐</span> Hébergement</h2>
+      <p>Ce site est hébergé par :</p>
+      <ul>
+        <li><strong>Render</strong> - 2261 Market Street #5023, San Francisco, CA 94114, USA</li>
+        <li><strong>Supabase</strong> - 201 Post Street, San Francisco, CA 94108, USA</li>
+      </ul>
+    </div>
+
+    <div class="mentions-section">
+      <h2><span class="icon">🔒</span> Protection des données</h2>
+      <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition aux données personnelles vous concernant.</p>
+      <p>Pour exercer ces droits, contactez-nous à : <strong>privacy@botvocal.com</strong></p>
+      <div class="contact-info">
+        <h3>Délégué à la protection des données</h3>
+        <p>Email : dpo@botvocal.com</p>
+        <p>Adresse : 42 avenue de l'IA, 75001 Paris, France</p>
+      </div>
+    </div>
+
+    <div class="mentions-section">
+      <h2><span class="icon">🍪</span> Cookies</h2>
+      <p>Ce site utilise des cookies pour améliorer votre expérience de navigation :</p>
+      <ul>
+        <li><strong>Cookies techniques :</strong> Nécessaires au fonctionnement du site</li>
+        <li><strong>Cookies analytiques :</strong> Pour analyser l'utilisation du site</li>
+        <li><strong>Cookies de personnalisation :</strong> Pour mémoriser vos préférences</li>
+      </ul>
+      <p>Vous pouvez désactiver les cookies dans les paramètres de votre navigateur.</p>
+    </div>
+
+    <div class="mentions-section">
+      <h2><span class="icon">📄</span> Propriété intellectuelle</h2>
+      <p>L'ensemble de ce site relève de la législation française et internationale sur le droit d'auteur et la propriété intellectuelle. Tous les droits de reproduction sont réservés, y compris pour les documents téléchargeables et les représentations iconographiques et photographiques.</p>
+    </div>
+
+    <div class="mentions-section">
+      <h2><span class="icon">⚖️</span> Droit applicable</h2>
+      <p>Les présentes mentions légales sont soumises au droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+    </div>
   </div>
+
+  <script>
+    // Charger le header
+    fetch('header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('header-placeholder').innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement du header:', error);
+      });
+
+    // Animation des sections au scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.mentions-section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'all 0.6s ease';
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html> 

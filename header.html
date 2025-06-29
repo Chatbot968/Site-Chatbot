@@ -1,142 +1,385 @@
 <header class="main-header">
   <div class="header-container">
     <a href="index.html" class="header-logo">
-      <span class="logo-icon">🎤</span>
+      <div class="logo-icon-container">
+        <span class="logo-icon">🎤</span>
+        <div class="logo-glow"></div>
+      </div>
       <span class="logo-text">Bot Vocal IA</span>
     </a>
     <nav class="header-nav">
-      <a href="index.html">Accueil</a>
-      <a href="a-propos.html">À propos</a>
-      <a href="tarifs.html">Tarifs</a>
-      <a href="demo-interactive.html">Démo</a>
-      <a href="faq.html">FAQ</a>
-      <a href="blog.html">Blog</a>
-      <a href="contact.html">Contact</a>
-      <a href="mentions.html">Mentions</a>
+      <a href="index.html" class="nav-link">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">Accueil</span>
+      </a>
+      <a href="a-propos.html" class="nav-link">
+        <span class="nav-icon">ℹ️</span>
+        <span class="nav-text">À propos</span>
+      </a>
+      <a href="tarifs.html" class="nav-link">
+        <span class="nav-icon">💰</span>
+        <span class="nav-text">Tarifs</span>
+      </a>
+      <a href="demo-interactive.html" class="nav-link">
+        <span class="nav-icon">🎮</span>
+        <span class="nav-text">Démo</span>
+      </a>
+      <a href="faq.html" class="nav-link">
+        <span class="nav-icon">❓</span>
+        <span class="nav-text">FAQ</span>
+      </a>
+      <a href="blog.html" class="nav-link">
+        <span class="nav-icon">📝</span>
+        <span class="nav-text">Blog</span>
+      </a>
+      <a href="contact.html" class="nav-link">
+        <span class="nav-icon">📞</span>
+        <span class="nav-text">Contact</span>
+      </a>
+      <a href="mentions.html" class="nav-link">
+        <span class="nav-icon">📄</span>
+        <span class="nav-text">Mentions</span>
+      </a>
     </nav>
-    <div class="header-burger" id="headerBurger">
-      <span></span><span></span><span></span>
+    <div class="header-actions">
+      <button class="demo-btn">
+        <span class="demo-icon">🚀</span>
+        <span>Essai gratuit</span>
+      </button>
+      <div class="header-burger" id="headerBurger">
+        <span></span><span></span><span></span>
+      </div>
     </div>
   </div>
 </header>
+
 <style>
   .main-header {
     position: sticky;
     top: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(30, 30, 60, 0.85);
-    backdrop-filter: blur(16px);
-    box-shadow: 0 2px 18px #181e3627;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    transition: background 0.3s;
+    background: rgba(15, 15, 35, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 
+      0 4px 32px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  .main-header:hover {
+    background: rgba(15, 15, 35, 0.98);
+    box-shadow: 
+      0 8px 40px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(102, 126, 234, 0.1);
+  }
+
   .header-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 32px;
-    height: 68px;
+    height: 72px;
   }
+
   .header-logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-decoration: none;
+    transition: transform 0.3s ease;
   }
+
+  .header-logo:hover {
+    transform: scale(1.05);
+  }
+
+  .logo-icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .logo-icon {
-    font-size: 2rem;
-    filter: drop-shadow(0 2px 8px #667eea88);
+    font-size: 2.2rem;
+    filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.6));
+    animation: pulse 3s ease-in-out infinite;
   }
+
+  .logo-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glow 4s ease-in-out infinite;
+  }
+
   .logo-text {
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     font-weight: 800;
-    background: linear-gradient(90deg, #fff, #a8b2ff 80%);
+    background: linear-gradient(135deg, #fff 0%, #a8b2ff 50%, #667eea 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -1px;
+    text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
   }
+
   .header-nav {
     display: flex;
-    gap: 28px;
+    gap: 8px;
   }
-  .header-nav a {
-    color: #fff;
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #b8c5ff;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 1.08em;
-    padding: 8px 0;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 10px 16px;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    transition: color 0.2s;
+    overflow: hidden;
   }
-  .header-nav a:hover, .header-nav a.active {
-    color: #a8b2ff;
-  }
-  .header-nav a.active::after, .header-nav a:hover::after {
+
+  .nav-link::before {
     content: '';
-    display: block;
-    height: 3px;
-    width: 100%;
-    background: linear-gradient(90deg, #667eea, #764ba2);
-    border-radius: 2px;
     position: absolute;
-    left: 0;
-    bottom: -4px;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    transition: left 0.5s ease;
   }
+
+  .nav-link:hover::before {
+    left: 100%;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: #fff;
+    background: rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+  }
+
+  .nav-icon {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav-link:hover .nav-icon {
+    opacity: 1;
+  }
+
+  .nav-text {
+    font-weight: 600;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .demo-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .demo-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .demo-btn:hover::before {
+    left: 100%;
+  }
+
+  .demo-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+  }
+
+  .demo-icon {
+    font-size: 1.1rem;
+  }
+
   .header-burger {
     display: none;
     flex-direction: column;
     gap: 4px;
     cursor: pointer;
-    margin-left: 18px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.3s ease;
   }
+
+  .header-burger:hover {
+    background: rgba(102, 126, 234, 0.1);
+  }
+
   .header-burger span {
     display: block;
-    width: 28px;
+    width: 24px;
     height: 3px;
-    background: #a8b2ff;
+    background: linear-gradient(90deg, #667eea, #764ba2);
     border-radius: 2px;
-    transition: all 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  @keyframes glow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+  }
+
+  @media (max-width: 1200px) {
+    .header-container { padding: 0 20px; }
+    .nav-text { display: none; }
+    .nav-link { padding: 10px 12px; }
+  }
+
   @media (max-width: 900px) {
-    .header-container { padding: 0 12px; }
-    .header-nav { gap: 16px; }
+    .header-container { padding: 0 16px; }
+    .header-nav { gap: 4px; }
+    .nav-link { padding: 8px 10px; }
+    .demo-btn { padding: 10px 16px; }
+    .demo-btn span:last-child { display: none; }
   }
+
   @media (max-width: 700px) {
     .header-nav {
       position: fixed;
-      top: 68px;
+      top: 72px;
       right: 0;
-      background: rgba(30,30,60,0.97);
+      background: rgba(15, 15, 35, 0.98);
+      backdrop-filter: blur(20px);
       flex-direction: column;
       align-items: flex-end;
       gap: 0;
-      width: 220px;
-      padding: 18px 0 18px 0;
-      border-radius: 0 0 0 18px;
-      box-shadow: -2px 8px 24px #181e3627;
+      width: 280px;
+      padding: 20px 0;
+      border-radius: 0 0 0 20px;
+      box-shadow: 
+        -4px 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
       transform: translateX(100%);
-      transition: transform 0.3s;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1001;
     }
-    .header-nav.open { transform: translateX(0); }
-    .header-nav a { padding: 14px 24px; width: 100%; }
-    .header-burger { display: flex; }
+
+    .header-nav.open { 
+      transform: translateX(0);
+    }
+
+    .nav-link { 
+      padding: 16px 24px; 
+      width: 100%;
+      justify-content: flex-start;
+      border-radius: 0;
+    }
+
+    .nav-text { display: inline; }
+
+    .header-burger { 
+      display: flex; 
+    }
+
+    .header-burger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .header-burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .header-burger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
   }
 </style>
+
 <script>
   // Burger menu mobile
   const burger = document.getElementById('headerBurger');
   const nav = document.querySelector('.header-nav');
+  
   if (burger && nav) {
-    burger.onclick = () => nav.classList.toggle('open');
+    burger.onclick = () => {
+      nav.classList.toggle('open');
+      burger.classList.toggle('open');
+    };
+    
     document.addEventListener('click', (e) => {
       if (!burger.contains(e.target) && !nav.contains(e.target)) {
         nav.classList.remove('open');
+        burger.classList.remove('open');
       }
     });
+
+    // Fermer le menu quand on clique sur un lien
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        burger.classList.remove('open');
+      });
+    });
   }
+
+  // Animation du header au scroll
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    const header = document.querySelector('.main-header');
+    
+    if (currentScroll > lastScroll && currentScroll > 100) {
+      header.style.transform = 'translateY(-100%)';
+    } else {
+      header.style.transform = 'translateY(0)';
+    }
+    
+    lastScroll = currentScroll;
+  });
+
+  // Marquer le lien actif
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link').forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
+    }
+  });
 </script> 

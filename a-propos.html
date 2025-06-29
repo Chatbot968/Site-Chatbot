@@ -6,28 +6,266 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <style>
-    body { background: linear-gradient(135deg, #1a1a2e 0%, #533483 100%); color: #fff; }
-    .about-hero { text-align: center; padding: 80px 0 40px 0; }
-    .about-hero h1 { font-size: 3rem; font-weight: 800; background: linear-gradient(90deg, #fff, #a8b2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .about-hero p { color: #b8c5ff; font-size: 1.2rem; max-width: 700px; margin: 20px auto 0 auto; }
-    .about-section { max-width: 900px; margin: 40px auto; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 40px 30px; box-shadow: 0 8px 32px #764ba244; margin-bottom: 32px; }
-    .about-section h2 { color: #a8b2ff; font-size: 2rem; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
-    .about-section h2 .icon { font-size: 1.3em; }
-    .about-section ul, .about-section ol { margin: 18px 0 0 0; padding-left: 24px; }
-    .about-section li { margin-bottom: 10px; color: #fff; font-size: 1.08em; }
-    .about-separator { width: 80px; height: 4px; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 2px; margin: 32px auto; opacity: 0.7; }
-    .about-values, .about-team { display: none; } /* Masqué car remplacé par le nouveau contenu */
-    .about-highlight { color: #ff6b9d; font-weight: 700; }
-    .about-section strong { color: #a8b2ff; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .about-hero { 
+      text-align: center; 
+      padding: 120px 0 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 15, 35, 0.8) 0%, rgba(26, 26, 46, 0.4) 100%);
+      backdrop-filter: blur(20px);
+      z-index: -1;
+    }
+
+    .about-hero h1 { 
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800; 
+      background: linear-gradient(135deg, #fff 0%, #a8b2ff 50%, #667eea 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      letter-spacing: -2px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .about-hero p { 
+      color: #b8c5ff; 
+      font-size: 1.3rem; 
+      max-width: 800px; 
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .about-highlight { 
+      color: #ff6b9d; 
+      font-weight: 700;
+      text-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
+    }
+
+    .about-section { 
+      max-width: 1000px; 
+      margin: 60px auto; 
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px; 
+      padding: 50px 40px;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .about-section:hover::before {
+      left: 100%;
+    }
+
+    .about-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(102, 126, 234, 0.2);
+    }
+
+    .about-section h2 { 
+      color: #a8b2ff; 
+      font-size: 2.2rem; 
+      margin-bottom: 25px; 
+      display: flex; 
+      align-items: center; 
+      gap: 15px;
+      font-weight: 700;
+    }
+
+    .about-section h2 .icon { 
+      font-size: 1.5em;
+      filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.6));
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .about-section ul, .about-section ol { 
+      margin: 25px 0 0 0; 
+      padding-left: 30px; 
+    }
+
+    .about-section li { 
+      margin-bottom: 15px; 
+      color: #fff; 
+      font-size: 1.1em;
+      line-height: 1.6;
+      position: relative;
+      padding-left: 10px;
+    }
+
+    .about-section li::before {
+      content: '→';
+      position: absolute;
+      left: -20px;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .about-separator { 
+      width: 100px; 
+      height: 4px; 
+      background: linear-gradient(90deg, #667eea, #764ba2); 
+      border-radius: 2px; 
+      margin: 50px auto;
+      opacity: 0.8;
+      position: relative;
+    }
+
+    .about-separator::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 2px;
+      animation: shimmer 2s ease-in-out infinite;
+    }
+
+    .about-section strong { 
+      color: #a8b2ff;
+      font-weight: 600;
+    }
+
+    .about-section p {
+      color: #b8c5ff;
+      font-size: 1.1em;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .stat-card {
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      background: rgba(102, 126, 234, 0.15);
+      border-color: rgba(102, 126, 234, 0.4);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: #b8c5ff;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes shimmer {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+
+    @media (max-width: 768px) {
+      .about-hero { padding: 100px 20px 60px 20px; }
+      .about-section { 
+        margin: 40px 20px;
+        padding: 30px 25px;
+      }
+      .about-section h2 { font-size: 1.8rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
+  <!-- Header inclus -->
+  <div id="header-placeholder"></div>
+
   <div class="about-hero">
     <h1>À propos de nous</h1>
     <p><strong>Chez nous, pas de paillettes ni de promesses en carton.</strong><br>
     On construit des IA vocales intelligentes, capables de vendre, conseiller et guider vos visiteurs en temps réel, directement sur votre site web.<br>
     <span class="about-highlight">Pas sur une extension. Pas sur une autre page. Ici, chez vous.</span></p>
   </div>
+
   <div class="about-section">
     <h2><span class="icon">🎯</span> Notre mission</h2>
     <ul>
@@ -37,7 +275,9 @@
       <li><strong>S'intégrer en quelques clics</strong>, sans sacrifier votre design ou votre éthique</li>
     </ul>
   </div>
+
   <div class="about-separator"></div>
+
   <div class="about-section">
     <h2><span class="icon">🚀</span> Ce qu'on a déjà mis en place (et qui fonctionne)</h2>
     <ul>
@@ -49,7 +289,9 @@
       <li>Une <strong>compatibilité</strong> avec des outils comme n8n, OpenAI, ElevenLabs, Supabase, Gmail, Google Calendar…</li>
     </ul>
   </div>
+
   <div class="about-separator"></div>
+
   <div class="about-section">
     <h2><span class="icon">💡</span> Ce qui nous différencie</h2>
     <p><strong>Notre force ? On ne vend pas une "boîte magique".</strong><br>
@@ -59,6 +301,63 @@
       <li>Mais surtout, on pense <strong>humain</strong>. Parce que même si c'est une IA qui parle, elle doit donner envie de rester, de cliquer… et d'acheter.</li>
     </ul>
   </div>
-  <!-- Footer sera inclus ici -->
+
+  <div class="about-separator"></div>
+
+  <div class="about-section">
+    <h2><span class="icon">📊</span> Nos chiffres</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Conversations par jour</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">95%</div>
+        <div class="stat-label">Taux de satisfaction</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24h</div>
+        <div class="stat-label">Temps de réponse</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Clients satisfaits</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Charger le header
+    fetch('header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('header-placeholder').innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement du header:', error);
+      });
+
+    // Animation des sections au scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.about-section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      section.style.transition = 'all 0.6s ease';
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html> 

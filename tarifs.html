@@ -6,66 +6,555 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <style>
-    body { background: linear-gradient(135deg, #533483 0%, #0f3460 100%); color: #fff; }
-    .tarifs-hero { text-align: center; padding: 70px 0 30px 0; }
-    .tarifs-hero h1 { font-size: 2.7rem; font-weight: 800; background: linear-gradient(90deg, #fff, #a8b2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .tarifs-hero p { color: #b8c5ff; font-size: 1.1rem; max-width: 600px; margin: 18px auto 0 auto; }
-    .tarifs-section { max-width: 900px; margin: 40px auto; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 40px 30px; box-shadow: 0 8px 32px #764ba244; }
-    .tarifs-table { width: 100%; border-collapse: collapse; margin-top: 30px; }
-    .tarifs-table th, .tarifs-table td { text-align: center; padding: 14px 0; font-size: 1.08em; }
-    .tarifs-table th { color: #a8b2ff; font-weight: 700; font-size: 1.1em; background: none; }
-    .tarifs-table tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .tarifs-table tr:last-child { border-bottom: none; }
-    .tarifs-table td:first-child, .tarifs-table th:first-child { text-align: left; padding-left: 10px; }
-    .tarifs-btn { margin-top: 30px; background: linear-gradient(90deg, #667eea, #764ba2); color: #fff; font-size: 1.1em; font-weight: 700; border: none; border-radius: 30px; padding: 13px 36px; cursor: pointer; box-shadow: 0 4px 18px #667eea33; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); }
-    .tarifs-btn:hover { filter: brightness(1.12) saturate(1.2); transform: translateY(-3px) scale(1.04); }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .tarifs-hero { 
+      text-align: center; 
+      padding: 120px 0 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tarifs-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(15, 15, 35, 0.8) 0%, rgba(26, 26, 46, 0.4) 100%);
+      backdrop-filter: blur(20px);
+      z-index: -1;
+    }
+
+    .tarifs-hero h1 { 
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800; 
+      background: linear-gradient(135deg, #fff 0%, #a8b2ff 50%, #667eea 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px;
+      letter-spacing: -2px;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .tarifs-hero p { 
+      color: #b8c5ff; 
+      font-size: 1.3rem; 
+      max-width: 700px; 
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .pricing-container {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .pricing-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .pricing-card:hover::before {
+      opacity: 1;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(102, 126, 234, 0.2);
+    }
+
+    .pricing-card.featured {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+      border: 2px solid rgba(102, 126, 234, 0.3);
+      transform: scale(1.05);
+    }
+
+    .pricing-card.featured::before {
+      opacity: 1;
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-10px);
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+    }
+
+    .plan-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .plan-icon {
+      font-size: 1.5rem;
+      filter: drop-shadow(0 4px 12px rgba(102, 126, 234, 0.6));
+    }
+
+    .plan-price {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #667eea;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .plan-price .currency {
+      font-size: 1.5rem;
+      color: #b8c5ff;
+    }
+
+    .plan-period {
+      color: #b8c5ff;
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+
+    .plan-features li {
+      padding: 12px 0;
+      color: #fff;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .plan-features li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-icon {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .plan-button {
+      width: 100%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plan-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .plan-button:hover::before {
+      left: 100%;
+    }
+
+    .plan-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    .comparison-section {
+      max-width: 1000px;
+      margin: 80px auto;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 50px 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .comparison-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #a8b2ff;
+      margin-bottom: 40px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .comparison-table th {
+      color: #a8b2ff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .comparison-table tr:hover {
+      background: rgba(102, 126, 234, 0.05);
+    }
+
+    .check-icon {
+      color: #4ade80;
+      font-size: 1.2rem;
+    }
+
+    .cross-icon {
+      color: #f87171;
+      font-size: 1.2rem;
+    }
+
+    .faq-section {
+      max-width: 800px;
+      margin: 60px auto;
+      text-align: center;
+    }
+
+    .faq-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #a8b2ff;
+      margin-bottom: 20px;
+    }
+
+    .faq-text {
+      color: #b8c5ff;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .contact-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 768px) {
+      .tarifs-hero { padding: 100px 20px 60px 20px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { transform: scale(1); }
+      .pricing-card.featured:hover { transform: translateY(-10px); }
+      .comparison-section { margin: 60px 20px; padding: 30px 25px; }
+    }
   </style>
 </head>
 <body>
+  <!-- Header inclus -->
+  <div id="header-placeholder"></div>
+
   <div class="tarifs-hero">
     <h1>Tarifs détaillés</h1>
     <p>Choisissez l'offre qui correspond à vos besoins. Sans engagement, évolutif à tout moment.</p>
   </div>
-  <div class="tarifs-section">
-    <table class="tarifs-table">
-      <tr>
-        <th>Offre</th>
-        <th>Prix</th>
-        <th>Conversations/mois</th>
-        <th>Support</th>
-        <th>FAQ IA</th>
-        <th>Statistiques</th>
-        <th>Multi-sites</th>
-      </tr>
-      <tr>
-        <td>Starter</td>
-        <td>49 €/mois</td>
-        <td>500</td>
-        <td>Email</td>
-        <td>Non</td>
-        <td>Non</td>
-        <td>Non</td>
-      </tr>
-      <tr style="background:rgba(255,255,255,0.02);">
-        <td>Pro <span style="background:#764ba2;color:#fff;padding:2px 10px;border-radius:10px;font-size:0.9em;">Le + choisi</span></td>
-        <td>149 €/mois</td>
-        <td>5 000</td>
-        <td>Prioritaire</td>
-        <td>Oui</td>
-        <td>Oui</td>
-        <td>Non</td>
-      </tr>
-      <tr>
-        <td>Business</td>
-        <td>Sur devis</td>
-        <td>Illimité</td>
-        <td>Dévoué 24/7</td>
-        <td>Oui</td>
-        <td>Oui</td>
-        <td>Oui</td>
-      </tr>
-    </table>
-    <button class="tarifs-btn">Demander un devis personnalisé</button>
+
+  <div class="pricing-container">
+    <div class="pricing-grid">
+      <!-- Plan Starter -->
+      <div class="pricing-card">
+        <div class="plan-name">
+          <span class="plan-icon">🚀</span>
+          Starter
+        </div>
+        <div class="plan-price">
+          <span class="currency">€</span>49
+        </div>
+        <div class="plan-period">par mois</div>
+        <ul class="plan-features">
+          <li><span class="feature-icon">✓</span>500 conversations/mois</li>
+          <li><span class="feature-icon">✓</span>Support email</li>
+          <li><span class="feature-icon">✓</span>Intégration simple</li>
+          <li><span class="feature-icon">✓</span>Personnalisation basique</li>
+          <li><span class="feature-icon">✗</span>FAQ IA</li>
+          <li><span class="feature-icon">✗</span>Statistiques avancées</li>
+        </ul>
+        <button class="plan-button">Commencer l'essai</button>
+      </div>
+
+      <!-- Plan Pro -->
+      <div class="pricing-card featured">
+        <div class="plan-badge">Le + choisi</div>
+        <div class="plan-name">
+          <span class="plan-icon">⭐</span>
+          Pro
+        </div>
+        <div class="plan-price">
+          <span class="currency">€</span>149
+        </div>
+        <div class="plan-period">par mois</div>
+        <ul class="plan-features">
+          <li><span class="feature-icon">✓</span>5 000 conversations/mois</li>
+          <li><span class="feature-icon">✓</span>Support prioritaire</li>
+          <li><span class="feature-icon">✓</span>Intégration avancée</li>
+          <li><span class="feature-icon">✓</span>Personnalisation complète</li>
+          <li><span class="feature-icon">✓</span>FAQ IA</li>
+          <li><span class="feature-icon">✓</span>Statistiques détaillées</li>
+        </ul>
+        <button class="plan-button">Commencer l'essai</button>
+      </div>
+
+      <!-- Plan Business -->
+      <div class="pricing-card">
+        <div class="plan-name">
+          <span class="plan-icon">🏢</span>
+          Business
+        </div>
+        <div class="plan-price">
+          <span class="currency">€</span>Sur devis
+        </div>
+        <div class="plan-period">personnalisé</div>
+        <ul class="plan-features">
+          <li><span class="feature-icon">✓</span>Conversations illimitées</li>
+          <li><span class="feature-icon">✓</span>Support dédié 24/7</li>
+          <li><span class="feature-icon">✓</span>Intégration sur mesure</li>
+          <li><span class="feature-icon">✓</span>Personnalisation totale</li>
+          <li><span class="feature-icon">✓</span>FAQ IA avancée</li>
+          <li><span class="feature-icon">✓</span>Multi-sites</li>
+        </ul>
+        <button class="plan-button">Demander un devis</button>
+      </div>
+    </div>
   </div>
+
+  <div class="comparison-section">
+    <h2 class="comparison-title">Comparaison détaillée</h2>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Fonctionnalité</th>
+          <th>Starter</th>
+          <th>Pro</th>
+          <th>Business</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Conversations/mois</td>
+          <td>500</td>
+          <td>5 000</td>
+          <td>Illimité</td>
+        </tr>
+        <tr>
+          <td>Support</td>
+          <td>Email</td>
+          <td>Prioritaire</td>
+          <td>Dévoué 24/7</td>
+        </tr>
+        <tr>
+          <td>FAQ IA</td>
+          <td><span class="cross-icon">✗</span></td>
+          <td><span class="check-icon">✓</span></td>
+          <td><span class="check-icon">✓</span></td>
+        </tr>
+        <tr>
+          <td>Statistiques</td>
+          <td><span class="cross-icon">✗</span></td>
+          <td><span class="check-icon">✓</span></td>
+          <td><span class="check-icon">✓</span></td>
+        </tr>
+        <tr>
+          <td>Multi-sites</td>
+          <td><span class="cross-icon">✗</span></td>
+          <td><span class="cross-icon">✗</span></td>
+          <td><span class="check-icon">✓</span></td>
+        </tr>
+        <tr>
+          <td>Personnalisation</td>
+          <td>Basique</td>
+          <td>Complète</td>
+          <td>Sur mesure</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="faq-section">
+    <h2 class="faq-title">Questions fréquentes</h2>
+    <p class="faq-text">Vous avez des questions sur nos tarifs ? Notre équipe est là pour vous aider.</p>
+    <a href="contact.html" class="contact-btn">Nous contacter</a>
+  </div>
+
+  <script>
+    // Charger le header
+    fetch('header.html')
+      .then(response => response.text())
+      .then(html => {
+        document.getElementById('header-placeholder').innerHTML = html;
+      })
+      .catch(error => {
+        console.error('Erreur lors du chargement du header:', error);
+      });
+
+    // Animation des cartes au scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.pricing-card, .comparison-section').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'all 0.6s ease';
+      observer.observe(card);
+    });
+
+    // Animation des boutons
+    document.querySelectorAll('.plan-button').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Effet de ripple
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.classList.add('ripple');
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+  </script>
 </body>
 </html> 
