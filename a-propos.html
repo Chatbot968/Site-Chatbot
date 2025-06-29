@@ -10,55 +10,54 @@
     .about-hero { text-align: center; padding: 80px 0 40px 0; }
     .about-hero h1 { font-size: 3rem; font-weight: 800; background: linear-gradient(90deg, #fff, #a8b2ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .about-hero p { color: #b8c5ff; font-size: 1.2rem; max-width: 700px; margin: 20px auto 0 auto; }
-    .about-section { max-width: 900px; margin: 40px auto; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 40px 30px; box-shadow: 0 8px 32px #764ba244; }
-    .about-section h2 { color: #a8b2ff; font-size: 2rem; margin-bottom: 18px; }
-    .about-values { display: flex; gap: 30px; justify-content: center; margin-top: 30px; }
-    .about-value { background: rgba(102,126,234,0.08); border-radius: 16px; padding: 24px; flex: 1; text-align: center; }
-    .about-value h3 { color: #fff; font-size: 1.2rem; margin-bottom: 10px; }
-    .about-team { display: flex; gap: 30px; justify-content: center; margin-top: 30px; flex-wrap: wrap; }
-    .about-member { background: rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; flex: 1; min-width: 220px; text-align: center; }
-    .about-member img { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 12px; border: 3px solid #667eea; }
-    .about-member h4 { color: #fff; margin-bottom: 6px; }
-    .about-member p { color: #b8c5ff; font-size: 0.98em; }
+    .about-section { max-width: 900px; margin: 40px auto; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 40px 30px; box-shadow: 0 8px 32px #764ba244; margin-bottom: 32px; }
+    .about-section h2 { color: #a8b2ff; font-size: 2rem; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+    .about-section h2 .icon { font-size: 1.3em; }
+    .about-section ul, .about-section ol { margin: 18px 0 0 0; padding-left: 24px; }
+    .about-section li { margin-bottom: 10px; color: #fff; font-size: 1.08em; }
+    .about-separator { width: 80px; height: 4px; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 2px; margin: 32px auto; opacity: 0.7; }
+    .about-values, .about-team { display: none; } /* Masqué car remplacé par le nouveau contenu */
+    .about-highlight { color: #ff6b9d; font-weight: 700; }
+    .about-section strong { color: #a8b2ff; }
   </style>
 </head>
 <body>
-  <!-- Header/navigation sera inclus ici -->
   <div class="about-hero">
-    <h1>À propos de notre aventure</h1>
-    <p>Notre mission : révolutionner la relation client grâce à l'IA vocale, pour que chaque visiteur vive une expérience unique, humaine et engageante.</p>
+    <h1>À propos de nous</h1>
+    <p><strong>Chez nous, pas de paillettes ni de promesses en carton.</strong><br>
+    On construit des IA vocales intelligentes, capables de vendre, conseiller et guider vos visiteurs en temps réel, directement sur votre site web.<br>
+    <span class="about-highlight">Pas sur une extension. Pas sur une autre page. Ici, chez vous.</span></p>
   </div>
   <div class="about-section">
-    <h2>Notre histoire</h2>
-    <p>Tout a commencé avec une passion pour l'innovation et la conviction que la voix est l'avenir du web. Après des mois de R&D, notre équipe a lancé le premier bot vocal IA 100% personnalisable pour l'e-commerce et les services.</p>
+    <h2><span class="icon">🎯</span> Notre mission</h2>
+    <ul>
+      <li><strong>Répondre naturellement</strong> aux visiteurs grâce à l'intelligence conversationnelle (GPT)</li>
+      <li><strong>Recommander des produits</strong> en fonction des besoins réels, pas juste des mots-clés</li>
+      <li><strong>Gérer les prises de rendez-vous, relances clients, CRM, emails</strong> – automatiquement</li>
+      <li><strong>S'intégrer en quelques clics</strong>, sans sacrifier votre design ou votre éthique</li>
+    </ul>
   </div>
+  <div class="about-separator"></div>
   <div class="about-section">
-    <h2>Nos valeurs</h2>
-    <div class="about-values">
-      <div class="about-value"><h3>Innovation</h3><p>Nous repoussons sans cesse les limites de l'IA pour offrir le meilleur à nos clients.</p></div>
-      <div class="about-value"><h3>Éthique</h3><p>Respect de la vie privée, transparence et sécurité sont au cœur de notre démarche.</p></div>
-      <div class="about-value"><h3>Humain</h3><p>La technologie au service de l'humain, jamais l'inverse.</p></div>
-    </div>
+    <h2><span class="icon">🚀</span> Ce qu'on a déjà mis en place (et qui fonctionne)</h2>
+    <ul>
+      <li>Un <strong>chatbot vocal JavaScript 100% customisable</strong>, avec configuration dynamique (clientId) pour coller à chaque marque</li>
+      <li>Une IA qui puise ses réponses dans <strong>deux bases vectorielles Supabase</strong> : vos produits, vos arguments commerciaux</li>
+      <li>Un <strong>design responsive et élégant</strong>, déjà testé sur des marques comme Oden</li>
+      <li>Une <strong>prise de rendez-vous automatisée</strong> (Google Calendar) avec vérification, relance, et email personnalisé</li>
+      <li>Des <strong>rapports hebdomadaires intelligents</strong>, générés automatiquement depuis les conversations de vos clients</li>
+      <li>Une <strong>compatibilité</strong> avec des outils comme n8n, OpenAI, ElevenLabs, Supabase, Gmail, Google Calendar…</li>
+    </ul>
   </div>
+  <div class="about-separator"></div>
   <div class="about-section">
-    <h2>L'équipe</h2>
-    <div class="about-team">
-      <div class="about-member">
-        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="CEO">
-        <h4>Diego Silva</h4>
-        <p>Fondateur & CEO</p>
-      </div>
-      <div class="about-member">
-        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="CTO">
-        <h4>Emma Dubois</h4>
-        <p>CTO & IA Lead</p>
-      </div>
-      <div class="about-member">
-        <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Design">
-        <h4>Lucas Martin</h4>
-        <p>Design & Expérience</p>
-      </div>
-    </div>
+    <h2><span class="icon">💡</span> Ce qui nous différencie</h2>
+    <p><strong>Notre force ? On ne vend pas une "boîte magique".</strong><br>
+    On co-construit avec vous une vraie force de vente digitale, capable d'évoluer avec votre marque, vos offres, et vos besoins réels.</p>
+    <ul>
+      <li>On pense <strong>design, conversion, automatisation</strong>.</li>
+      <li>Mais surtout, on pense <strong>humain</strong>. Parce que même si c'est une IA qui parle, elle doit donner envie de rester, de cliquer… et d'acheter.</li>
+    </ul>
   </div>
   <!-- Footer sera inclus ici -->
 </body>
