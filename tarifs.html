@@ -632,12 +632,39 @@
       if (faqAi.checked) additionalCost += 30;
       if (analytics.checked) additionalCost += 25;
       if (multisite.checked) additionalCost += 50;
+      // Nouvelles options
+      const whatsapp = document.getElementById('whatsapp').checked;
+      const voice = document.getElementById('voice').checked;
+      const crm = document.getElementById('crm').checked;
+      const supportPremium = document.getElementById('support-premium').checked;
+      const exportData = document.getElementById('export').checked;
+      const ecommerce = document.getElementById('ecommerce').checked;
+      if (whatsapp) additionalCost += 40;
+      if (voice) additionalCost += 30;
+      if (crm) additionalCost += 35;
+      if (supportPremium) additionalCost += 50;
+      if (exportData) additionalCost += 15;
+      if (ecommerce) additionalCost += 60;
 
       const totalPrice = basePrice + additionalCost;
 
       // Animation du prix
       animatePriceChange(calculatedPrice, totalPrice);
       pricePlan.textContent = `Plan ${plan}`;
+
+      // Récapitulatif dynamique
+      const recap = [];
+      recap.push(`Conversations/mois : <b>${conversations}</b>`);
+      if (faqAi.checked) recap.push('FAQ IA intelligente');
+      if (analytics.checked) recap.push('Statistiques avancées');
+      if (multisite.checked) recap.push('Multi-sites');
+      if (whatsapp) recap.push('Intégration WhatsApp');
+      if (voice) recap.push('Voix personnalisée');
+      if (crm) recap.push('Connexion à un CRM');
+      if (supportPremium) recap.push('Support premium 24/7');
+      if (exportData) recap.push('Export des données');
+      if (ecommerce) recap.push('Intégration e-commerce');
+      document.getElementById('recapOptions').innerHTML = recap.length ? recap.map(opt => `<li>${opt}</li>`).join('') : '<li>Aucune option sélectionnée</li>';
     }
 
     function animatePriceChange(element, newPrice) {
@@ -668,6 +695,13 @@
     faqAi.addEventListener('change', calculatePrice);
     analytics.addEventListener('change', calculatePrice);
     multisite.addEventListener('change', calculatePrice);
+    // Nouvelles options
+    document.getElementById('whatsapp').addEventListener('change', calculatePrice);
+    document.getElementById('voice').addEventListener('change', calculatePrice);
+    document.getElementById('crm').addEventListener('change', calculatePrice);
+    document.getElementById('support-premium').addEventListener('change', calculatePrice);
+    document.getElementById('export').addEventListener('change', calculatePrice);
+    document.getElementById('ecommerce').addEventListener('change', calculatePrice);
 
     // Initialisation
     calculatePrice();
@@ -711,139 +745,98 @@
               <span class="checkmark"></span>
               Multi-sites
             </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="whatsapp">
+              <span class="checkmark"></span>
+              Intégration WhatsApp
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="voice">
+              <span class="checkmark"></span>
+              Voix personnalisée
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="crm">
+              <span class="checkmark"></span>
+              Connexion à un CRM
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="support-premium">
+              <span class="checkmark"></span>
+              Support premium 24/7
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="export">
+              <span class="checkmark"></span>
+              Export des données
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="ecommerce">
+              <span class="checkmark"></span>
+              Intégration e-commerce
+            </label>
           </div>
         </div>
-        
-        <div class="price-result">
-          <div class="calculated-price">
-            <span class="price-amount" id="calculatedPrice">49</span>
-            <span class="price-currency">€/mois</span>
+        <div class="price-result" style="display:flex;flex-wrap:wrap;gap:30px;align-items:flex-start;">
+          <div style="flex:1;min-width:220px;">
+            <div class="calculated-price">
+              <span class="price-amount" id="calculatedPrice">49</span>
+              <span class="price-currency">€/mois</span>
+            </div>
+            <div class="price-plan" id="pricePlan">Plan Starter</div>
           </div>
-          <div class="price-plan" id="pricePlan">Plan Starter</div>
+          <div style="flex:2;min-width:220px;background:rgba(102,126,234,0.07);border-radius:12px;padding:18px 20px;">
+            <div style="color:#a8b2ff;font-weight:700;margin-bottom:8px;">Récapitulatif :</div>
+            <ul id="recapOptions" style="color:#fff;font-size:1rem;line-height:1.7;margin:0 0 0 18px;padding:0;"></ul>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- FORMULAIRE DE DEMANDE DE DEVIS -->
+  <section class="devis-section" style="max-width:800px;margin:0 auto 60px auto;padding:40px 20px;background:rgba(255,255,255,0.04);border-radius:20px;">
+    <h2 style="text-align:center;color:#fff;font-size:2rem;font-weight:700;margin-bottom:20px;">Demander un devis personnalisé</h2>
+    <form id="devisForm" action="https://formspree.io/f/xdoqzqzq" method="POST" style="display:flex;flex-direction:column;gap:20px;">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;">
+        <input type="text" name="Nom" placeholder="Votre nom" required style="flex:1;padding:14px;border-radius:10px;border:none;font-size:1rem;">
+        <input type="email" name="Email" placeholder="Votre email" required style="flex:1;padding:14px;border-radius:10px;border:none;font-size:1rem;">
+        <input type="text" name="Téléphone" placeholder="Téléphone (optionnel)" style="flex:1;padding:14px;border-radius:10px;border:none;font-size:1rem;">
+      </div>
+      <textarea name="Message" placeholder="Votre message ou besoin particulier (optionnel)" rows="3" style="padding:14px;border-radius:10px;border:none;font-size:1rem;"></textarea>
+      <input type="hidden" name="Options choisies" id="devisOptions">
+      <button type="submit" style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:16px 0;border:none;border-radius:12px;font-size:1.1rem;font-weight:700;cursor:pointer;">Envoyer ma demande de devis</button>
+      <div id="devisSuccess" style="display:none;color:#4ade80;text-align:center;font-weight:600;margin-top:10px;">Votre demande a bien été envoyée !</div>
+    </form>
+  </section>
+
   <div class="pricing-container">
     <div class="pricing-grid">
-      <!-- Plan Starter -->
-      <div class="pricing-card">
-        <div class="plan-name">
-          <span class="plan-icon">🚀</span>
-          Starter
-        </div>
-        <div class="plan-price">
-          <span class="currency">€</span>49
-        </div>
-        <div class="plan-period">par mois</div>
-        <ul class="plan-features">
-          <li><span class="feature-icon">✓</span>500 conversations/mois</li>
-          <li><span class="feature-icon">✓</span>Support email</li>
-          <li><span class="feature-icon">✓</span>Intégration simple</li>
-          <li><span class="feature-icon">✓</span>Personnalisation basique</li>
-          <li><span class="feature-icon">✗</span>FAQ IA</li>
-          <li><span class="feature-icon">✗</span>Statistiques avancées</li>
-        </ul>
-        <button class="plan-button">Commencer l'essai</button>
-      </div>
-
-      <!-- Plan Pro -->
+      <!-- Offre personnalisable -->
       <div class="pricing-card featured">
-        <div class="plan-badge">Le + choisi</div>
+        <div class="plan-badge">Recommandé</div>
         <div class="plan-name">
-          <span class="plan-icon">⭐</span>
-          Pro
+          <span class="plan-icon">✨</span>
+          Offre 100% personnalisable
         </div>
         <div class="plan-price">
-          <span class="currency">€</span>149
+          <span class="currency">€</span>Sur-mesure
         </div>
-        <div class="plan-period">par mois</div>
+        <div class="plan-period">selon vos besoins</div>
         <ul class="plan-features">
-          <li><span class="feature-icon">✓</span>5 000 conversations/mois</li>
-          <li><span class="feature-icon">✓</span>Support prioritaire</li>
-          <li><span class="feature-icon">✓</span>Intégration avancée</li>
-          <li><span class="feature-icon">✓</span>Personnalisation complète</li>
-          <li><span class="feature-icon">✓</span>FAQ IA</li>
-          <li><span class="feature-icon">✓</span>Statistiques détaillées</li>
+          <li><span class="feature-icon">✓</span>Choisissez vos fonctionnalités</li>
+          <li><span class="feature-icon">✓</span>Nombre d'interactions adapté</li>
+          <li><span class="feature-icon">✓</span>Design et intégration personnalisés</li>
+          <li><span class="feature-icon">✓</span>Support dédié</li>
+          <li><span class="feature-icon">✓</span>Évolutif à tout moment</li>
         </ul>
-        <button class="plan-button">Commencer l'essai</button>
-      </div>
-
-      <!-- Plan Business -->
-      <div class="pricing-card">
-        <div class="plan-name">
-          <span class="plan-icon">🏢</span>
-          Business
-        </div>
-        <div class="plan-price">
-          <span class="currency">€</span>Sur devis
-        </div>
-        <div class="plan-period">personnalisé</div>
-        <ul class="plan-features">
-          <li><span class="feature-icon">✓</span>Conversations illimitées</li>
-          <li><span class="feature-icon">✓</span>Support dédié 24/7</li>
-          <li><span class="feature-icon">✓</span>Intégration sur mesure</li>
-          <li><span class="feature-icon">✓</span>Personnalisation totale</li>
-          <li><span class="feature-icon">✓</span>FAQ IA avancée</li>
-          <li><span class="feature-icon">✓</span>Multi-sites</li>
-        </ul>
-        <button class="plan-button">Demander un devis</button>
+        <button class="plan-button" onclick="document.querySelector('.price-calculator').scrollIntoView({behavior: 'smooth'});">Simuler mon prix</button>
       </div>
     </div>
   </div>
 
-  <div class="comparison-section">
-    <h2 class="comparison-title">Comparaison détaillée</h2>
-    <table class="comparison-table">
-      <thead>
-        <tr>
-          <th>Fonctionnalité</th>
-          <th>Starter</th>
-          <th>Pro</th>
-          <th>Business</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Conversations/mois</td>
-          <td>500</td>
-          <td>5 000</td>
-          <td>Illimité</td>
-      </tr>
-      <tr>
-          <td>Support</td>
-        <td>Email</td>
-          <td>Prioritaire</td>
-          <td>Dévoué 24/7</td>
-        </tr>
-        <tr>
-          <td>FAQ IA</td>
-          <td><span class="cross-icon">✗</span></td>
-          <td><span class="check-icon">✓</span></td>
-          <td><span class="check-icon">✓</span></td>
-        </tr>
-        <tr>
-          <td>Statistiques</td>
-          <td><span class="cross-icon">✗</span></td>
-          <td><span class="check-icon">✓</span></td>
-          <td><span class="check-icon">✓</span></td>
-      </tr>
-        <tr>
-          <td>Multi-sites</td>
-          <td><span class="cross-icon">✗</span></td>
-          <td><span class="cross-icon">✗</span></td>
-          <td><span class="check-icon">✓</span></td>
-      </tr>
-      <tr>
-          <td>Personnalisation</td>
-          <td>Basique</td>
-          <td>Complète</td>
-          <td>Sur mesure</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Suppression de la table de comparaison -->
+  <!-- <div class="comparison-section"> ... </div> supprimé -->
 
   <div class="faq-section">
     <h2 class="faq-title">Questions fréquentes</h2>
@@ -899,5 +892,46 @@
       });
     });
   </script>
+
+  <!-- BOUTON DE PRISE DE RENDEZ-VOUS -->
+  <div style="text-align:center;margin:40px 0 0 0;">
+    <a href="https://calendly.com/ton-lien-demo" target="_blank" style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:16px 32px;border-radius:14px;font-size:1.1rem;font-weight:700;text-decoration:none;">Prendre rendez-vous pour une démo</a>
+  </div>
+
+  <!-- SECTION TÉMOIGNAGES -->
+  <section style="max-width:900px;margin:60px auto 0 auto;padding:40px 20px;background:rgba(255,255,255,0.04);border-radius:20px;">
+    <h2 style="text-align:center;color:#fff;font-size:2rem;font-weight:700;margin-bottom:30px;">Ils ont personnalisé leur bot avec nous</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:30px;justify-content:center;">
+      <div style="background:rgba(102,126,234,0.08);border-radius:14px;padding:24px;max-width:320px;flex:1;min-width:220px;">
+        <div style="font-size:1.1rem;color:#fff;font-weight:600;margin-bottom:10px;">Sarah, e-commerce</div>
+        <div style="color:#b8c5ff;">"Grâce à la personnalisation, notre bot répond à toutes les questions clients et gère les commandes sur WhatsApp. Le simulateur de prix nous a permis de choisir exactement ce qu'il nous fallait !"</div>
+      </div>
+      <div style="background:rgba(102,126,234,0.08);border-radius:14px;padding:24px;max-width:320px;flex:1;min-width:220px;">
+        <div style="font-size:1.1rem;color:#fff;font-weight:600;margin-bottom:10px;">Julien, agence immobilière</div>
+        <div style="color:#b8c5ff;">"Nous avons intégré le bot à notre CRM et personnalisé la voix. L'équipe a été très réactive pour le support !"</div>
+      </div>
+      <div style="background:rgba(102,126,234,0.08);border-radius:14px;padding:24px;max-width:320px;flex:1;min-width:220px;">
+        <div style="font-size:1.1rem;color:#fff;font-weight:600;margin-bottom:10px;">Fatou, service public</div>
+        <div style="color:#b8c5ff;">"Le bot gère des milliers de conversations par mois et exporte les statistiques pour nos rapports. Très satisfait de la flexibilité !"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ PERSONNALISÉE -->
+  <section style="max-width:900px;margin:60px auto 0 auto;padding:40px 20px;background:rgba(255,255,255,0.04);border-radius:20px;">
+    <h2 style="text-align:center;color:#fff;font-size:2rem;font-weight:700;margin-bottom:30px;">FAQ sur la personnalisation et la facturation</h2>
+    <div style="color:#b8c5ff;font-size:1.1rem;max-width:700px;margin:0 auto;">
+      <b>Comment fonctionne la personnalisation ?</b><br>
+      Vous choisissez les fonctionnalités qui vous intéressent dans le simulateur. Nous adaptons le bot à vos besoins précis.<br><br>
+      <b>Le prix affiché est-il définitif ?</b><br>
+      Le prix affiché est une estimation. Un devis personnalisé vous sera envoyé après analyse de vos besoins.<br><br>
+      <b>Puis-je modifier mon offre plus tard ?</b><br>
+      Oui, vous pouvez faire évoluer votre bot à tout moment selon vos besoins.<br><br>
+      <b>Quels sont les délais de mise en place ?</b><br>
+      Généralement entre 3 et 10 jours ouvrés selon la complexité.<br><br>
+      <b>Comment se passe le support ?</b><br>
+      Un support dédié est inclus, et l’option premium permet un accompagnement 24/7.<br>
+    </div>
+  </section>
 </body>
 </html> 

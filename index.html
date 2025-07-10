@@ -1267,91 +1267,21 @@
 
   <!-- OFFRES/PRIX -->
   <section class="offers">
-    <h2>Nos offres</h2>
-    <div class="offer-cards">
-      <!-- Starter -->
-      <div class="offer offer-starter">
-        <h3>Starter</h3>
-        <ul>
-          <li>Jusqu'à 500 conversations/mois</li>
-          <li>Support email</li>
-          <li>Personnalisation logo & couleurs</li>
+    <h2>Notre offre personnalisable</h2>
+    <div style="max-width:600px;margin:0 auto 30px auto;color:#b8c5ff;font-size:1.15rem;line-height:1.7;">Configurez votre bot vocal IA selon vos besoins : fonctionnalités, intégrations, support, design… Obtenez une estimation instantanée et un devis sur-mesure.</div>
+    <div class="offer-cards" style="justify-content:center;">
+      <div class="offer offer-custom" style="max-width:400px;margin:0 auto;background:rgba(255,255,255,0.07);border:2px solid #667eea;">
+        <h3 style="color:#a8b2ff;font-size:1.5rem;font-weight:700;">Offre 100% personnalisable</h3>
+        <ul style="margin-bottom:20px;">
+          <li>Choisissez vos fonctionnalités</li>
+          <li>Nombre d'interactions adapté</li>
+          <li>Design et intégration personnalisés</li>
+          <li>Support dédié</li>
+          <li>Évolutif à tout moment</li>
         </ul>
-        <p class="price">49 €/mois</p>
-        <button class="offer-btn">Essayer Starter</button>
+        <p class="price" style="font-size:2rem;font-weight:800;">Sur-mesure</p>
+        <a href="tarifs.html" class="contact-btn" style="margin:0 auto;">Simuler mon prix</a>
       </div>
-      <!-- Pro (populaire) -->
-      <div class="offer offer-pro" style="position:relative; z-index:2;">
-        <div class="offer-badge">Le + choisi</div>
-        <h3>Pro</h3>
-        <ul>
-          <li>Jusqu'à 5 000 conversations/mois</li>
-          <li>Support prioritaire</li>
-          <li>FAQ IA intelligente</li>
-          <li>Statistiques avancées</li>
-        </ul>
-        <p class="price">149 €/mois</p>
-        <button class="offer-btn offer-btn-pro">Essayer Pro</button>
-      </div>
-      <!-- Business -->
-      <div class="offer offer-business">
-        <h3>Business</h3>
-        <ul>
-          <li>Conversations illimitées</li>
-          <li>Support dédié 24/7</li>
-          <li>Intégration multi-sites</li>
-          <li>Fonctionnalités sur-mesure</li>
-        </ul>
-        <p class="price">Sur devis</p>
-        <button class="offer-btn offer-btn-business">Contactez-nous</button>
-      </div>
-    </div>
-    <!-- Comparatif rapide -->
-    <div class="offer-compare" style="margin: 40px auto 0 auto; max-width: 900px; background: rgba(255,255,255,0.04); border-radius: 18px; padding: 24px 18px; box-shadow: 0 2px 18px #181e3627;">
-      <table style="width:100%; color:#fff; border-collapse:collapse;">
-        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
-          <th style="text-align:left; padding:8px 0;">Fonctionnalités</th>
-          <th>Starter</th>
-          <th>Pro</th>
-          <th>Business</th>
-        </tr>
-        <tr>
-          <td style="padding:8px 0;">Conversations/mois</td>
-          <td>500</td>
-          <td>5 000</td>
-          <td>Illimité</td>
-        </tr>
-        <tr style="background:rgba(255,255,255,0.02);">
-          <td style="padding:8px 0;">Support</td>
-          <td>Email</td>
-          <td>Prioritaire</td>
-          <td>Dévoué 24/7</td>
-        </tr>
-        <tr>
-          <td style="padding:8px 0;">FAQ IA</td>
-          <td>Non</td>
-          <td>Oui</td>
-          <td>Oui</td>
-        </tr>
-        <tr style="background:rgba(255,255,255,0.02);">
-          <td style="padding:8px 0;">Statistiques avancées</td>
-          <td>Non</td>
-          <td>Oui</td>
-          <td>Oui</td>
-        </tr>
-        <tr>
-          <td style="padding:8px 0;">Multi-sites</td>
-          <td>Non</td>
-          <td>Non</td>
-          <td>Oui</td>
-        </tr>
-        <tr style="background:rgba(255,255,255,0.02);">
-          <td style="padding:8px 0;">Personnalisation</td>
-          <td>Logo & couleurs</td>
-          <td>Avancée</td>
-          <td>Sur-mesure</td>
-        </tr>
-      </table>
     </div>
   </section>
 
@@ -1392,11 +1322,28 @@
   <div id="bot-widget"></div>
 
   <!-- INTEGRE TON BOT VOCAL SAAS ICI -->
-  <script 
-  src="https://chatbot-owsk.onrender.com/chatbot.js"
-  data-client-id="Oden"
-  data-backend-url="https://backend-dxeo.onrender.com"
-></script>
+  <script type="text/javascript">
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+          window.voiceflow.chat.load({
+            verify: { projectID: '686ced8a487dac4ee25c1e54' },
+            url: 'https://general-runtime.voiceflow.com',
+            versionID: 'production',
+            voice: {
+              url: "https://runtime-api.voiceflow.com"
+            }
+          });
+        }
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+  
+  
+  
+  
+  
+  
 
   <!-- SwiperJS : la lib + initialisation -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
