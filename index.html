@@ -1392,11 +1392,23 @@
   <div id="bot-widget"></div>
 
   <!-- INTEGRE TON BOT VOCAL SAAS ICI -->
-  <script 
-  src="https://chatbot-owsk.onrender.com/chatbot.js"
-  data-client-id="Oden"
-  data-backend-url="https://backend-dxeo.onrender.com"
-></script>
+  <script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '686ced8a487dac4ee25c1e54' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          }
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
+
 
   <!-- SwiperJS : la lib + initialisation -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
